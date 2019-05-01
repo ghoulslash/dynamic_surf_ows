@@ -1,6 +1,12 @@
 # dynamic_surf_ows
--Add the unique surfing overworlds feature from pokeemerald to Fire Red (see https://github.com/Slawter666/pokeemerald/tree/surfable/src)
 
+=====================================================
+What Is This?
+
+This is a feature, originally from pokeem, (see https://github.com/Slawter666/pokeemerald/tree/surfable/src), to have the surfing sprite dynamically change based on the first party pokemon or selected pokemon from the menu.
+
+
+=====================================================
 Important Notes:
 
 1. This includes the dynamic overworld palette hack, as it removes the need to worry about matching palettes, and is generally just awesome. See https://github.com/Navenatox/DynamicOverworldPalettes for more details. The original source code has been modified to call some of these functions, so removing the file if you've already added this feature will not do. There is ample free-space in FR so I suggest just leaving it be unless you know what you are doing.
@@ -8,6 +14,18 @@ Important Notes:
 2. This feauture is currently missing a lot of necessary artwork. Any pokemon without art will default to the original surf blob. As art is added, either by the user or community, you can change this in src/surf_mons.h by changing the elements `.paletteTag` and `.images` of `const struct SpriteTemplate s[species]Overworld`
 
 3. Fire Red likes vertical images, and as such the sprites have to have all their frames lined up vertically, as opposed to the pokeem images that are layered horizontally. While annoying, changing the frame ordering isn't a big deal, and I hope this won't stand in the way of community art being shared.
+
+=====================================================
+How To Compile:
+
+1. add `rom.gba` to the main directory
+
+2. open `scripts/make.py` and modify `OFFSET_TO_PUT` to wherever you'd like to insert this code, as well as `SEARCH_FREE_SPACE` to `True` if you'd like to search for free space from said offset.
+
+3. type `python scripts/make.py` to compile the code and images.
+
+4. the offsets will be located in `offsets.ini`
+
 
 
 Adding New Species:
