@@ -1,7 +1,13 @@
 #include "surf_mons.h"
 
+
 extern u8 FindOrLoadNPCPalette(u16 PalTag);
-extern void UpdateSurfMonOverlay(struct Sprite *sprite);
+extern u8 FindPalRef(u8 Type, u16 PalTag);
+extern u8 PalRefIncreaseCount(u8 PalSlot);
+extern u8 AddPalRef(u8 Type, u16 PalTag);
+extern void MaskPaletteIfFadingIn(u8 PalSlot);
+
+void UpdateSurfMonOverlay(struct Sprite *sprite);
 
 /*
 void DoLoadSpritePalette(const u16 *src, u16 paletteOffset)
@@ -30,6 +36,30 @@ u8 LoadSpritePalette(const struct SpritePalette *palette)
     }
 }
 */
+
+
+void LoadSurfPalette(u16 index, u8 palSlot) {
+	
+	// ismonshiny check
+	u16 offset = ((palSlot << 0x14) + 0x1000000) >> 0x10;
+	LoadPalette(gSurfablePokemon[index].palAddr, offset, 0x20);
+	TintPalette_Switch(palSlot);
+};
+
+u8 FindOrLoadSurfPalette(u16 surfIndex, u16 PalTag) {
+	u8 PalSlot;
+	PalSlot = FindPalRef(PalTypeNPC, PalTag);
+	if (PalSlot != 0xFF)
+		return PalRefIncreaseCount(PalSlot);
+	PalSlot = AddPalRef(PalTypeNPC, PalTag);
+	if (PalSlot == 0xFF)
+		return PalRefIncreaseCount(0);	
+	//LoadNPCPalette(PalTag, PalSlot);
+	
+	LoadSurfPalette(surfIndex, PalSlot);
+	MaskPaletteIfFadingIn(PalSlot);
+	return PalRefIncreaseCount(PalSlot);
+};
 
 
 u16 GetSurfMonSpecies(void) {
@@ -82,7 +112,8 @@ u8 LoadSurfOverworldPalette(u16 index) {
 			return FindOrLoadNPCPalette(gSurfablePokemon[index].palTag);
 		
 	}*/
-		return FindOrLoadNPCPalette(gSurfablePokemon[index].overworldGfx->paletteTag);
+		//return FindOrLoadNPCPalette(gSurfablePokemon[index].overworldGfx->paletteTag);
+		return FindOrLoadSurfPalette(index, gSurfablePokemon[index].overworldGfx->paletteTag);
 };
 
 
@@ -97,11 +128,11 @@ void CreateOverlaySprite(u16 index) {
     {
         sprite = &gSprites[overlaySprite];
         sprite->coordOffsetEnabled = TRUE;
-        sprite->data[2] = gFieldEffectArguments[2];
 		
 		u8 palSlot = LoadSurfOverworldPalette(index);	// same hook loc for SetPalSurf
-		sprite->oam.paletteNum |= palSlot;		
+		sprite->oam.paletteNum |= palSlot;			
 		
+        sprite->data[2] = gFieldEffectArguments[2];
         sprite->data[3] = 0;
         sprite->data[6] = -1;
         sprite->data[7] = -1;

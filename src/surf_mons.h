@@ -507,6 +507,29 @@ const struct SpriteTemplate sWailmerOverlay = {
 /*==================================================
 	RIDEABLE POKEMON STRUCTURE
 ==================================================*/
+
+struct RideableMons
+{
+	u16 species;
+	u16 filler;
+	const u16* palAddr;
+	const u16* shinyPalAddr;
+	const struct SpriteTemplate* overworldGfx;
+	const struct SpriteTemplate* overlayGfx;
+};
+
+const struct RideableMons gSurfablePokemon[] =
+{
+	{
+		.species = SPECIES_WARTORTLE,
+		.palAddr = &wartortlePal[0],
+		.shinyPalAddr = 0,
+		.overworldGfx = &sWartortleOverworld,
+		.overlayGfx = &sWartortleOverlay,
+	},	
+};
+
+/*
 struct RideableMons
 {
 	u16 species;
@@ -1131,5 +1154,5 @@ const struct RideableMons gSurfablePokemon[] =
 		.overlayGfx = 0,
 	},
 };
-
+*/
 

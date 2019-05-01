@@ -3,12 +3,12 @@
 
 //======================================================================
 //
-//	lapras, 192x64@4, 
+//	lapras, 32x384@4, 
 //	+ palette 16 entries, not compressed
 //	+ 192 tiles not compressed
 //	Total size: 32 + 6144 = 6176
 //
-//	Time-stamp: 2019-05-01, 00:13:35
+//	Time-stamp: 2019-05-01, 10:01:06
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //

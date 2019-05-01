@@ -16,15 +16,11 @@
 
 #define CpuSetFill (1 << 24)
 
-#define PalTypeUnused 0
-#define PalTypeNPC 1
-#define PalTypeAnimation 2
-#define PalTypeWeather 3
-#define PalTypeReflection 4
-#define PalTypeOther 5
-
 u8 FindOrLoadNPCPalette(u16 PalTag);
-
+u8 FindPalRef(u8 Type, u16 PalTag);
+u8 PalRefIncreaseCount(u8 PalSlot);
+u8 AddPalRef(u8 Type, u16 PalTag);
+void MaskPaletteIfFadingIn(u8 PalSlot);
 
 typedef struct
 {

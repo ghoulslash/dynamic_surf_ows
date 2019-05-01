@@ -61,3 +61,10 @@
 #define gDummySpriteAffineAnimTable (const union AffineAnimCmd* const*) 0x8231CFC
 #define sDefaultSurfBlob ((const struct SpriteTemplate*) 0x83A556C)
 
+#define PalTypeUnused 0
+#define PalTypeNPC 1
+#define PalTypeAnimation 2
+#define PalTypeWeather 3
+#define PalTypeReflection 4
+#define PalTypeOther 5
+

@@ -42,6 +42,7 @@ TintPalette_GrayScale = 0x8071544 | 1;
 TintPalette_GrayScale2 = 0x8071594 | 1;
 TintPalette_SepiaTone = 0x80715F4 | 1;
 TintPalette_CustomTone = 0x8071660 | 1;
+TintPalette_Switch = 0x08083598 | 1;
 
 /*Other Functions*/
 Malloc = 0x8002B9C | 1;
