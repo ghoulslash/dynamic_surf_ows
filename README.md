@@ -1,9 +1,11 @@
 # dynamic_surf_ows
 -Add the unique surfing overworlds feature from pokeemerald to Fire Red (see https://github.com/Slawter666/pokeemerald/tree/surfable/src)
 
--credit to slawter for the original idea
-
-NOTE: this feauture is currently missing a lot of necessary artwork. Any pokemon without art will default to the original surf blob. As art is added, either by the user or community, you can change this in src/surf_mons.h by changing the elements `.paletteTag` and `.images` of `const struct SpriteTemplate s[species]Overworld`
+Feature Notes:
+```
+1. This includes the dynamic overworld palette hack, as it removes the need to worry about matching palettes, and is generally just awesome. See https://github.com/Navenatox/DynamicOverworldPalettes for more details. The original source code has been modified to call some of these functions, so removing the file if you've already added this feature will not do. There is ample free-space in FR so I suggest just leaving it be unless you know what you are doing.
+2. This feauture is currently missing a lot of necessary artwork. Any pokemon without art will default to the original surf blob. As art is added, either by the user or community, you can change this in src/surf_mons.h by changing the elements `.paletteTag` and `.images` of `const struct SpriteTemplate s[species]Overworld`
+```
 
 Adding New Species:
 
@@ -82,4 +84,4 @@ const struct SpriteTemplate sPopplioOverlay = {
 },
 ```
 
-10. You will have to manually add the palette to the NPC palette table after compiling, which is one reason I recommend using existing palettes (and it saves space :D). The table has a format of [palette pointer] [palette tag] 00 00. The table must end in FF 11 00 00 00 00 00 00, but otherwise the tags do not need to be in order, as the game searches through each table entry for the palette tag.
+10. You will have to manually add the palette to the NPC palette table after compiling, which is one reason I recommend using existing palettes (and it saves space :D). The table has a format of [palette pointer] [palette tag] 00 00. The table must end in `00 00 00 00 FF 11 00 00`, but otherwise the tags do not need to be in order, as the game searches through each table entry for the palette tag. A pointer for the table is at 0x5F4D8.
