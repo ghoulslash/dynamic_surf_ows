@@ -1,3 +1,4 @@
 Slawter666/pret - pokeem source
 Navenatox - dynamic overworld palettes
-Skeli - python compiler scripts
+Skeli - python compiler scripts, general project structure
+Sprites - Avara, slawter666, Hestia, ghoulslash
