@@ -5,6 +5,14 @@ What Is This?
 
 This is a feature, originally from pokeem, (see https://github.com/Slawter666/pokeemerald/tree/surfable/src), to have the surfing sprite dynamically change based on the first party pokemon or selected pokemon from the menu.
 
+It has, in my opinion, a few improved features:
+
+1. One master structure for all species data, so worrying about matching indexes is no longer an issue
+
+2. The palette is directly loaded from an address rather than using a tag. A tag is still needed for tracking the palette, but there is no need to add the palette to the NPC palette table. This means you only need one tag for all surf sprites, since only one will exist at the same time.
+
+3. If a pokemon is selected directly from the pokemenu, that sprite is loaded rather than the first party pokemon with surf.
+
 
 =====================================================
 Important Notes:

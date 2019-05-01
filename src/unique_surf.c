@@ -9,40 +9,29 @@ extern void MaskPaletteIfFadingIn(u8 PalSlot);
 
 void UpdateSurfMonOverlay(struct Sprite *sprite);
 
-/*
-void DoLoadSpritePalette(const u16 *src, u16 paletteOffset)
+
+
+bool8 IsShinyOtIdPersonality(u32 otId, u32 personality)
 {
-    LoadPalette(src, paletteOffset + 0x100, 32);
+    bool8 retVal = FALSE;
+    u32 shinyValue = HIHALF(otId) ^ LOHALF(otId) ^ HIHALF(personality) ^ LOHALF(personality);
+    if (shinyValue < 8)
+        retVal = TRUE;
+    return retVal;
 }
 
-u8 LoadSpritePalette(const struct SpritePalette *palette)
-{
-    u8 index = IndexOfSpritePaletteTag(palette->tag);
-
-    if (index != 0xFF)
-        return index;
-
-    index = IndexOfSpritePaletteTag(0xFFFF);
-
-    if (index == 0xFF)
-    {
-        return 0xFF;
-    }
-    else
-    {
-        sSpritePaletteTags[index] = palette->tag;
-        DoLoadSpritePalette(palette->data, index * 16);
-        return index;
-    }
-}
-*/
-
+bool8 IsMonShiny(struct Pokemon *mon) {
+    u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
+    u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
+    return IsShinyOtIdPersonality(otId, personality);
+};
 
 void LoadSurfPalette(u16 index, u8 palSlot) {
-	
-	// ismonshiny check
 	u16 offset = ((palSlot << 0x14) + 0x1000000) >> 0x10;
-	LoadPalette(gSurfablePokemon[index].palAddr, offset, 0x20);
+	if (IsMonShiny(&gPlayerParty[Var8000]) && gSurfablePokemon[index].shinyPalAddr != 0)
+		LoadPalette(gSurfablePokemon[index].shinyPalAddr, offset, 0x20);
+	else
+		LoadPalette(gSurfablePokemon[index].palAddr, offset, 0x20);
 	TintPalette_Switch(palSlot);
 };
 
@@ -55,7 +44,6 @@ u8 FindOrLoadSurfPalette(u16 surfIndex, u16 PalTag) {
 	if (PalSlot == 0xFF)
 		return PalRefIncreaseCount(0);	
 	//LoadNPCPalette(PalTag, PalSlot);
-	
 	LoadSurfPalette(surfIndex, PalSlot);
 	MaskPaletteIfFadingIn(PalSlot);
 	return PalRefIncreaseCount(PalSlot);
@@ -69,6 +57,7 @@ u16 GetSurfMonSpecies(void) {
         if (MonHasMove(&gPlayerParty[i], MOVE_SURF))
         {
             u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
+			Var8000 = i;	// position in party
             return species;
         }
     }
@@ -79,8 +68,12 @@ u16 GetSurfablePokemonSprite(void) {
     u8 i;
 	u16 mon;
 	
-	if (gBrmData->selectedPoke != 7)
+	if (gBrmData->exitCallback != 0 && gBrmData->selectedPoke != 7)
+	{
 		mon = GetMonData(&gPlayerParty[gBrmData->selectedPoke], MON_DATA_SPECIES, NULL);	// selected from party menu
+		Var8000 = gBrmData->selectedPoke;	// position in party
+		gBrmData->selectedPoke = 7;	// reset
+	}
 	else
 		mon = GetSurfMonSpecies();	//find first party mon with surf
 	
@@ -93,27 +86,13 @@ u16 GetSurfablePokemonSprite(void) {
     return 0xFFFF;
 };
 
-/*
-bool8 IsMonShiny(struct Pokemon *mon) {
-    u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
-    u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
-    return IsShinyOtIdPersonality(otId, personality);
-};
-*/
 
 u8 LoadSurfOverworldPalette(u16 index) {
-	if (index == 0xFFFF)
+	if (index == 0xFFFF || gSurfablePokemon[index].palAddr == 0)
 		return FindOrLoadNPCPalette(0x1100);	//surf blob pal tag
 	else
-	/*{
-		if (IsMonShiny)
-			return FindOrLoadNPCPalette(gSurfablePokemon[index].shinyPalTag);
-		else
-			return FindOrLoadNPCPalette(gSurfablePokemon[index].palTag);
-		
-	}*/
-		//return FindOrLoadNPCPalette(gSurfablePokemon[index].overworldGfx->paletteTag);
 		return FindOrLoadSurfPalette(index, gSurfablePokemon[index].overworldGfx->paletteTag);
+		// assuming pal tags are unique, the shiny tag is the same as the regular
 };
 
 

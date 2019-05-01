@@ -14,6 +14,12 @@
 #define uBYTE0_16(value)(( (u8) (((u16)(value) & (0x000000FF)) >> 0x00)))
 #define uBYTE1_16(value)(( (u8) (((u16)(value) & (0x0000FF00)) >> 0x08)))
 
+// Extracts the upper 16 bits of a 32-bit number
+#define HIHALF(n) (((n) & 0xFFFF0000) >> 16)
+
+// Extracts the lower 16 bits of a 32-bit number
+#define LOHALF(n) ((n) & 0xFFFF)
+
 #define EOS 0xFF
 
 #define ColorFilter *((u8*)0x2036E28)
