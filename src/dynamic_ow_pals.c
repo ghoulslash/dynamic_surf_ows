@@ -1,6 +1,6 @@
 #include "defines.h"
 #include "../include/field_weather.h"
-#include "../include/new/helper_functions.h"
+//#include "../include/new/helper_functions.h"
 
 //Credit to Navenatox
 
@@ -24,8 +24,6 @@
 #define PalTypeWeather 3
 #define PalTypeReflection 4
 #define PalTypeOther 5
-
-// #define PalRefs ((PalRef*)0x203FF00)	// moved to ram_locs
 
 extern u8 AddPalRef(u8 Type, u16 PalTag);
 extern u8 FindOrLoadNPCPalette(u16 PalTag);

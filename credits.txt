@@ -1,0 +1,3 @@
+Slawter666/pret - pokeem source
+Navenatox - dynamic overworld palettes
+Skeli - python compiler scripts

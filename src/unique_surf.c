@@ -1,14 +1,7 @@
-
 #include "surf_mons.h"
-
-#include "../include/pokemon.h"
-#include "../include/new/Vanilla_Functions.h"
-#include "../include/field_effect.h"
-#include "../include/fieldmap.h"
 
 extern u8 FindOrLoadNPCPalette(u16 PalTag);
 extern void UpdateSurfMonOverlay(struct Sprite *sprite);
-
 
 /*
 void DoLoadSpritePalette(const u16 *src, u16 paletteOffset)
@@ -57,7 +50,7 @@ u16 GetSurfablePokemonSprite(void) {
 	u16 mon;
 	
 	if (gBrmData->selectedPoke != 7)
-		mon = gPlayerParty[gBrmData->selectedPoke].species;	// selected from party menu
+		mon = GetMonData(&gPlayerParty[gBrmData->selectedPoke], MON_DATA_SPECIES, NULL);	// selected from party menu
 	else
 		mon = GetSurfMonSpecies();	//find first party mon with surf
 	
@@ -89,7 +82,7 @@ u8 LoadSurfOverworldPalette(u16 index) {
 			return FindOrLoadNPCPalette(gSurfablePokemon[index].palTag);
 		
 	}*/
-		return FindOrLoadNPCPalette(gSurfablePokemon[index].palTag);
+		return FindOrLoadNPCPalette(gSurfablePokemon[index].overworldGfx.paletteTag);
 };
 
 
@@ -159,20 +152,19 @@ u8 SpriteDataCheck(struct Sprite *sprite) {
 };
 
 
-void SyncDirection(struct EventObject *eventObject, struct Sprite *sprite)
-{
-    u8 surfBlobDirectionAnims[] = {
-        [DIR_NONE] = 0,
-        [DIR_SOUTH] = 0,
-        [DIR_NORTH] = 1,
-        [DIR_WEST] = 2,
-        [DIR_EAST] = 3,
-        [DIR_SOUTHWEST] = 0,
-        [DIR_SOUTHEAST] = 0,
-        [DIR_NORTHWEST] = 1,
-        [DIR_NORTHEAST] = 1,
-    };
+u8 surfBlobDirectionAnims[] = {
+	[DIR_NONE] = 0,
+	[DIR_SOUTH] = 0,
+	[DIR_NORTH] = 1,
+	[DIR_WEST] = 2,
+	[DIR_EAST] = 3,
+	[DIR_SOUTHWEST] = 0,
+	[DIR_SOUTHEAST] = 0,
+	[DIR_NORTHWEST] = 1,
+	[DIR_NORTHEAST] = 1,
+};
 
+void SyncDirection(struct EventObject *eventObject, struct Sprite *sprite) {
     if (SpriteDataCheck(sprite) == 0)
         StartSpriteAnimIfDifferent(sprite, surfBlobDirectionAnims[eventObject->movementDirection]);
 };

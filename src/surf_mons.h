@@ -1,11 +1,11 @@
-#pragma once
-
-#include "../global.h"
-#include "../sprite.h"
-#include "../field_effect.h"
-#include "../constants/species.h"
-#include "../constants/moves.h"
-#include "../gba/types.h"
+#include "defines.h"
+#include "../include/global.h"
+#include "../include/field_effect.h"
+#include "../include/species.h"
+#include "../include/moves.h"
+#include "../include/sprite.h"
+#include "../include/gba/types.h"
+#include "../include/fieldmap.h"
 
 #define PAL_TAG_SURF_BLOB 0x1100
 #define NO_OVERLAY {0, 0, NULL, NULL, NULL, NULL, NULL}
@@ -14,9 +14,6 @@
 
 extern s32 gFieldEffectArguments[8];
 extern void UpdateSurfMonOverlay(struct Sprite *sprite);
-
-#define gEventObjectBaseOam_32x32 ((struct OamData*) 0x83A3718)
-#define gSurfablePokemonAnimTable ((const union AnimCmd* const*) 0x83A555C)
 
 const struct Coords16 sDirectionToVectors[] = {
     { 0,  0},
@@ -34,6 +31,7 @@ const struct Coords16 sDirectionToVectors[] = {
 // Images
 extern const u32 surfBlobTiles[];
 extern const u16 surfBlobPal[];
+
 
 extern const u32 squirtleTiles[];
 extern const u16 squirtlePal[];
@@ -121,7 +119,9 @@ Need to add pal pointer and tag to npc_pals (table pointer 5F4D8)
 */
 enum
 {
-    PAL_TAG_WARTORTLE_SURF = 0x3001,
+	PAL_TAG_SQUIRTLE_SURF = 0x3001,
+	PAL_TAG_WARTORTLE_SURF,
+	PAL_TAG_BLASTOISE_SURF,
 	PAL_TAG_LAPRAS_SURF,
 	//etc
 };
@@ -129,9 +129,31 @@ enum
 
 
 /*================================================
-	OVERWORLD FRAMES
+	OVERWORLD FRAMES (by index)
 ================================================*/
-// WARTORTLE
+//===== 00 SQUIRTLE
+/*
+const struct SpriteFrameImage gSurfingOverworldPicTable_Squirtle[] = {
+    overworld_frame(&squirtleTiles[0], 4, 4, 1),
+    overworld_frame(&squirtleTiles[0], 4, 4, 0),
+    overworld_frame(&squirtleTiles[0], 4, 4, 3),
+    overworld_frame(&squirtleTiles[0], 4, 4, 2),
+    overworld_frame(&squirtleTiles[0], 4, 4, 5),
+    overworld_frame(&squirtleTiles[0], 4, 4, 4),
+    overworld_frame(&squirtleTiles[0], 4, 4, 7),
+    overworld_frame(&squirtleTiles[0], 4, 4, 6),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Squirtle[] = {
+    overworld_frame(&squirtleTiles[0], 4, 4, 7),
+    overworld_frame(&squirtleTiles[0], 4, 4, 6),
+    overworld_frame(&squirtleTiles[0], 4, 4, 9),
+    overworld_frame(&squirtleTiles[0], 4, 4, 8),
+    overworld_frame(&squirtleTiles[0], 4, 4, 11),
+    overworld_frame(&squirtleTiles[0], 4, 4, 10),
+};
+*/
+
+//===== 01 WARTORTLE
 const struct SpriteFrameImage gSurfingOverworldPicTable_Wartortle[] = {
     overworld_frame(&wartortleTiles[0], 4, 4, 1),
     overworld_frame(&wartortleTiles[0], 4, 4, 0),
@@ -150,6 +172,36 @@ const struct SpriteFrameImage gSurfingOverlayPicTable_Wartortle[] = {
     overworld_frame(&wartortleTiles[0], 4, 4, 11),
     overworld_frame(&wartortleTiles[0], 4, 4, 10),
 };
+
+//===== 02 BLASTOISE
+
+//===== 03 NIDOQUEEN
+
+//===== 04 NIDOKING
+
+//===== 05 PSYDUCK
+
+//===== 06 GOLDUCK
+
+//===== 07 POLIWAG
+
+//===== 08 POLIWHIRL
+
+//===== 09 POLIWRATH
+
+//===== 10 TENTACOOL
+
+//===== 11 TENTACRUEL
+
+//===== 12 SLOWPOKE
+
+//===== 13 SLOWBRO
+
+//===== 14 SEEL
+
+//===== 15 DEWGONG
+
+//===== 16 
 
 // LAPRAS
 const struct SpriteFrameImage gSurfingOverworldPicTable_Lapras[] = {
@@ -175,7 +227,29 @@ const struct SpriteFrameImage gSurfingOverlayPicTable_Lapras[] = {
 /*==================================================
 	SPRITE TEMPLATES
 ==================================================*/
-// WARTORTLE
+/*
+//===== 00 SQUIRTLE
+const struct SpriteTemplate sSquirtleOverworld = {
+	.tileTag = 0xFFFF,
+	.paletteTag = PAL_TAG_SQUIRTLE_SURF,
+	.oam = gEventObjectBaseOam_32x32,
+	.anims = gSurfablePokemonAnimTable,
+	.images = gSurfingOverworldPicTable_Squirtle,
+	.affineAnims = gDummySpriteAffineAnimTable,
+	.callback = UpdateSurfBlobFieldEffect,
+};
+const struct SpriteTemplate sSquirtleOverlay = {
+	.tileTag = 0xFFFF,
+	.paletteTag = PAL_TAG_WARTORTLE_SURF,
+	.oam = gEventObjectBaseOam_32x32,
+	.anims = gSurfablePokemonAnimTable,
+	.images = gSurfingOverlayPicTable_Wartortle,
+	.affineAnims = gDummySpriteAffineAnimTable,
+	.callback = UpdateSurfMonOverlay,
+};
+*/
+
+//===== 01 WARTORTLE
 const struct SpriteTemplate sWartortleOverworld = {
 	.tileTag = 0xFFFF,
 	.paletteTag = PAL_TAG_WARTORTLE_SURF,
@@ -194,9 +268,13 @@ const struct SpriteTemplate sWartortleOverlay = {
 	.affineAnims = gDummySpriteAffineAnimTable,
 	.callback = UpdateSurfMonOverlay,
 };
+//===== 02 BLASTOISE
 
-// LAPRAS
-const struct SpriteTemplate sLaprasOverword = {
+//===== 03 NIDOQUEEN
+
+
+//===== LAPRAS
+const struct SpriteTemplate sLaprasOverworld = {
 	.tileTag = 0xFFFF,
 	.paletteTag = PAL_TAG_LAPRAS_SURF,
 	.oam = gEventObjectBaseOam_32x32,
@@ -222,9 +300,7 @@ const struct SpriteTemplate sLaprasOverlay = {
 struct RideableMons
 {
 	u16 species;
-	u16 palTag;
 	u16 shinyPalTag;
-	u16 filler;
 	struct SpriteTemplate overworldGfx;
 	struct SpriteTemplate overlayGfx;
 };
@@ -234,16 +310,14 @@ const struct RideableMons gSurfablePokemon[] =
 {
 	{
 		.species = SPECIES_WARTORTLE,
-		.palTag = PAL_TAG_WARTORTLE_SURF,
 		.shinyPalTag = 0,
 		.overworldGfx = sWartortleOverworld,
 		.overlayGfx = sWartortleOverlay,
 	},
 	{
 		.species = SPECIES_LAPRAS,
-		.palTag = PAL_TAG_LAPRAS_SURF,
 		.shinyPalTag = 0,
-		.overworldGfx = sLaprasOverword,
+		.overworldGfx = sLaprasOverworld,
 		.overlayGfx = sLaprasOverlay,
 	},	
 };
