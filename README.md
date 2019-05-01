@@ -100,8 +100,8 @@ const struct SpriteTemplate sPopplioOverlay = {
 {
   .species = SPECIES_POPPLIO,
   .shinyPalTag = PAL_TAG_POPPLIO_SHINY,    // if it exists, 0 otherwise
-  .overworldGfx = sLaprasOverword,
-  .overlayGfx = sLaprasOverlay,
+  .overworldGfx = &sPopplioOverword,
+  .overlayGfx = &sPopplioOverlay,
 },
 ```
 

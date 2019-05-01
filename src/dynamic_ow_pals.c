@@ -1,10 +1,8 @@
 #include "defines.h"
+#include "config.h"
 #include "../include/field_weather.h"
-//#include "../include/new/helper_functions.h"
-
 //Credit to Navenatox
 
-//#define RGB(R, G, B)	(R | G << 5 | B << 10)
 #define Red(Color)		((Color) & 31)
 #define Green(Color)	((Color >> 5) & 31)
 #define Blue(Color)		((Color >> 10) & 31)
@@ -25,8 +23,7 @@
 #define PalTypeReflection 4
 #define PalTypeOther 5
 
-extern u8 AddPalRef(u8 Type, u16 PalTag);
-extern u8 FindOrLoadNPCPalette(u16 PalTag);
+u8 FindOrLoadNPCPalette(u16 PalTag);
 
 
 typedef struct

@@ -16,23 +16,6 @@
 
 #define EOS 0xFF
 
-#define AFFINEANIMCMD_FRAME(_xScale, _yScale, _rotation, _duration) \
-    {.frame = {.xScale = _xScale, .yScale = _yScale, .rotation = _rotation, .duration = _duration}}
-#define AFFINEANIMCMD_LOOP(_count) \
-    {.loop = {.type = AFFINEANIMCMDTYPE_LOOP, .count = _count}}
-#define AFFINEANIMCMD_JUMP(_target) \
-    {.jump = {.type = AFFINEANIMCMDTYPE_JUMP, .target = _target}}
-#define AFFINEANIMCMD_END \
-    {.type = AFFINEANIMCMDTYPE_END}
-#define AFFINEANIMCMD_LOOP(_count) \
-    {.loop = {.type = AFFINEANIMCMDTYPE_LOOP, .count = _count}}
-#define AFFINEANIMCMD_JUMP(_target) \
-    {.jump = {.type = AFFINEANIMCMDTYPE_JUMP, .target = _target}}
-	
-#define gEventObjectBaseOam_32x32 ((struct OamData*) 0x83A3718)
-#define gSurfablePokemonAnimTable ((const union AnimCmd* const*) 0x83A555C)
-#define gDummySpriteAffineAnimTable (const union AffineAnimCmd* const*) 0x8231CFC
-
 #define ColorFilter *((u8*)0x2036E28)
 #define gPlttBufferUnfaded ((u16*) 0x20371F8)
 #define gPlttBufferUnfaded2 ((u16*) 0x20373F8)
@@ -40,7 +23,6 @@
 #define gWeatherPtr ((struct Weather*) 0x2037F34)
 #define gPlttBufferFaded ((u16*) 0x20375F8)
 #define gPlttBufferFaded2 ((u16*) 0x20377F8)
-#define PalRefs ((PalRef*)0x203FF00)
 #define AlphaBlendingCoeffA *((u8*)0x3000052)
 #define PalTags ((u16*)0x3000DE8)
 #define PalTagsStart *((u8*)0x3003E58)
@@ -60,3 +42,22 @@
 #define ColorFilter *((u8*)0x2036E28)
 #define gPlayerAvatar ((struct PlayerAvatar*) 0x02037078)
 #define gEventObjects ((struct MapObject*) 0x2036E38)
+
+#define AFFINEANIMCMD_FRAME(_xScale, _yScale, _rotation, _duration) \
+    {.frame = {.xScale = _xScale, .yScale = _yScale, .rotation = _rotation, .duration = _duration}}
+#define AFFINEANIMCMD_LOOP(_count) \
+    {.loop = {.type = AFFINEANIMCMDTYPE_LOOP, .count = _count}}
+#define AFFINEANIMCMD_JUMP(_target) \
+    {.jump = {.type = AFFINEANIMCMDTYPE_JUMP, .target = _target}}
+#define AFFINEANIMCMD_END \
+    {.type = AFFINEANIMCMDTYPE_END}
+#define AFFINEANIMCMD_LOOP(_count) \
+    {.loop = {.type = AFFINEANIMCMDTYPE_LOOP, .count = _count}}
+#define AFFINEANIMCMD_JUMP(_target) \
+    {.jump = {.type = AFFINEANIMCMDTYPE_JUMP, .target = _target}}
+	
+#define gEventObjectBaseOam_32x32 ((struct OamData*) 0x83A3718)
+#define gSurfablePokemonAnimTable ((const union AnimCmd* const*) 0x83A555C)
+#define gDummySpriteAffineAnimTable (const union AffineAnimCmd* const*) 0x8231CFC
+#define sDefaultSurfBlob ((const struct SpriteTemplate*) 0x83A556C)
+

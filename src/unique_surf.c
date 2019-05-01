@@ -82,7 +82,7 @@ u8 LoadSurfOverworldPalette(u16 index) {
 			return FindOrLoadNPCPalette(gSurfablePokemon[index].palTag);
 		
 	}*/
-		return FindOrLoadNPCPalette(gSurfablePokemon[index].overworldGfx.paletteTag);
+		return FindOrLoadNPCPalette(gSurfablePokemon[index].overworldGfx->paletteTag);
 };
 
 
@@ -91,7 +91,7 @@ void CreateOverlaySprite(u16 index) {
     u8 overlaySprite;
     struct Sprite *sprite;
 
-    overlaySprite = CreateSpriteAtEnd(&gSurfablePokemon[index].overlayGfx, gFieldEffectArguments[0], gFieldEffectArguments[1], 0x96);
+    overlaySprite = CreateSpriteAtEnd(gSurfablePokemon[index].overlayGfx, gFieldEffectArguments[0], gFieldEffectArguments[1], 0x96);
 
     if (overlaySprite != MAX_SPRITES)
     {
@@ -204,9 +204,9 @@ u32 CreateSurfablePokemonSprite(void) {
 	
     if (sSurfSpeciesIdx != 0xFFFF)
     {
-        spriteId = CreateSpriteAtEnd(&gSurfablePokemon[sSurfSpeciesIdx].overworldGfx, gFieldEffectArguments[0], gFieldEffectArguments[1], 0x96);
+        spriteId = CreateSpriteAtEnd(gSurfablePokemon[sSurfSpeciesIdx].overworldGfx, gFieldEffectArguments[0], gFieldEffectArguments[1], 0x96);
         
-		if (&gSurfablePokemon[sSurfSpeciesIdx].overlayGfx.tileTag != 0)
+		if (gSurfablePokemon[sSurfSpeciesIdx].overlayGfx != 0)
             CreateOverlaySprite(sSurfSpeciesIdx);
     }
     else	// Create surf blob
