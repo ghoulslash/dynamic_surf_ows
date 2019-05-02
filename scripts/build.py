@@ -252,7 +252,7 @@ def main():
 	globs = {
 			'**/*.s': process_assembly,
 			'**/*.c': process_c,
-			'**/*.string': process_string,
+			#'**/*.string': process_string,
 			'**/*.png': process_image,
 			'**/*.bmp': process_image
 	}

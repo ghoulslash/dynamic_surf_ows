@@ -2,7 +2,6 @@
 *config.h
 *.gba
 build/*
-*/graphics/*.h
 *.sgm
 *.dmp
 *.bak
