@@ -68,14 +68,7 @@ u16 GetSurfablePokemonSprite(void) {
     u8 i;
 	u16 mon;
 	
-	if (gBrmData->exitCallback != 0 && gBrmData->selectedPoke != 7)
-	{
-		mon = GetMonData(&gPlayerParty[gBrmData->selectedPoke], MON_DATA_SPECIES, NULL);	// selected from party menu
-		Var8000 = gBrmData->selectedPoke;	// position in party
-		gBrmData->selectedPoke = 7;	// reset
-	}
-	else
-		mon = GetSurfMonSpecies();	//find first party mon with surf
+	mon = GetSurfMonSpecies();	//find first party mon with surf
 	
 	// find species in table
     for (i = 0; i < ARRAY_COUNT(gSurfablePokemon); ++i)

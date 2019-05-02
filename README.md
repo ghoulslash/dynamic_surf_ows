@@ -11,9 +11,6 @@ It has, in my opinion, a few improved features:
 
 2. The palette is directly loaded from an address rather than using a tag. A tag is still needed for tracking the palette, but there is no need to add the palette to the NPC palette table. This means you only need one tag for all surf sprites, since only one will exist at the same time.
 
-3. If a pokemon is selected directly from the pokemenu, that sprite is loaded rather than the first party pokemon with surf.
-
-
 =====================================================
 Important Notes:
 
@@ -79,38 +76,21 @@ const struct SpriteFrameImage gSurfingOverlayPicTable_Popplio[] = {
 ```
 
 7. Construct a sprite template for the main overworld sprite as so:
-```const struct SpriteTemplate sPopplioOverworld = {
-	.tileTag = 0xFFFF,
-	.paletteTag = PAL_TAG_POPPLIO_SURF,
-	.oam = gEventObjectBaseOam_32x32,
-	.anims = gSurfablePokemonAnimTable,
-	.images = gSurfingOverworldPicTable_Popplio,
-	.affineAnims = gDummySpriteAffineAnimTable,
-	.callback = UpdateSurfBlobFieldEffect,
-};
-```
+`const struct SpriteTemplate sPopplioOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Popplio, UpdateSurfBlobFieldEffect)`
 
 8. If you have overlay frames:
-```
-const struct SpriteTemplate sPopplioOverlay = {
-	.tileTag = 0xFFFF,
-	.paletteTag = PAL_TAG_POPPLIO_SURF,
-	.oam = gEventObjectBaseOam_32x32,
-	.anims = gSurfablePokemonAnimTable,
-	.images = gSurfingOverlayPicTable_Popplio,
-	.affineAnims = gDummySpriteAffineAnimTable,
-	.callback = UpdateSurfMonOverlay,
-};
-```
+`const struct SpriteTemplate sPopplioOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Popplio, UpdateSurfMonOverlay)`
+
+If there are no overlay frames, you can simply set the `gSurfablePokemon.overlayGfx` element to 0 (see Step 9). The palette tag is included in the surf_template define to allow a user to allow each sprite a unique palette tag.
 
 9. Finally, add the following to the gSurfablePokemon structure at the bottom of the page. Note that I changed the structures from the pokeemerald source so you shouldn't have to worry about matching indices, since there is one main structure that defines the surfable pokemon
 ```
 {
   .species = SPECIES_POPPLIO,
-  .shinyPalTag = PAL_TAG_POPPLIO_SHINY,    // if it exists, 0 otherwise
+  .palAddr = &popplioPal[0],
+  .shinyPalAddr = &popplioShinyPal[0],	// or 0 if it doesn't exist
   .overworldGfx = &sPopplioOverword,
-  .overlayGfx = &sPopplioOverlay,
+  .overlayGfx = &sPopplioOverlay,	// or 0 if it doesn't exist
 },
 ```
 
-10. You will have to manually add the palette to the NPC palette table after compiling, which is one reason I recommend using existing palettes (and it saves space :D). The table has a format of [palette pointer] [palette tag] 00 00. The table must end in `00 00 00 00 FF 11 00 00`, but otherwise the tags do not need to be in order, as the game searches through each table entry for the palette tag. A pointer for the table is at 0x5F4D8.

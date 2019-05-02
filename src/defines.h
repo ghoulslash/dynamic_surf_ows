@@ -45,9 +45,11 @@
 #define gEnemyParty ((struct Pokemon*) 0x202402C)
 #define gPlayerParty ((struct Pokemon*) 0x2024284)
 #define gSprites ((struct Sprite*) 0x202063C)
-#define ColorFilter *((u8*)0x2036E28)
+
 #define gPlayerAvatar ((struct PlayerAvatar*) 0x02037078)
 #define gEventObjects ((struct MapObject*) 0x2036E38)
+#define gMenuChoices ((struct MenuChoiceStruct*) 0x0203ADE4)
+#define gBrmBoxes ((struct BrmBoxes*) (*(u32*) 0x0203B09C))
 
 #define AFFINEANIMCMD_FRAME(_xScale, _yScale, _rotation, _duration) \
     {.frame = {.xScale = _xScale, .yScale = _yScale, .rotation = _rotation, .duration = _duration}}
