@@ -105,7 +105,7 @@ void CreateOverlaySprite(u16 index) {
 		sprite->oam.paletteNum |= palSlot;			
 		
         sprite->data[2] = gFieldEffectArguments[2];
-        sprite->data[3] = 0;
+        sprite->data[3] = -1;
         sprite->data[6] = -1;
         sprite->data[7] = -1;
         sprite->oam.priority = 1;

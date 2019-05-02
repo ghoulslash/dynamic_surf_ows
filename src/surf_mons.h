@@ -42,104 +42,29 @@ extern const u32 wartortleTiles[];
 extern const u16 wartortlePal[];
 extern const u16 wartortleShinyPal[];
 
-extern const u32 blastoiseTiles[];
-extern const u16 blastoisePal[];
-extern const u16 blastoiseShinyPal[];
-
-extern const u32 nidoqueenTiles[];
-extern const u16 nidoqueenPal[];
-extern const u16 nidoqueenShinyPal[];
-
-extern const u32 nidokingTiles[];
-extern const u16 nidokingPal[];
-extern const u16 nidokingShinyPal[];
-
-extern const u32 psyduckTiles[];
-extern const u16 psyduckPal[];
-extern const u16 psyduckShinyPal[];
-
-extern const u32 golduckTiles[];
-extern const u16 golduckPal[];
-extern const u16 golduckShinyPal[];
-
-extern const u32 poliwagTiles[];
-extern const u16 poliwagPal[];
-extern const u16 poliwagShinyPal[];
-
-extern const u32 poliwhirlTiles[];
-extern const u16 poliwhirlPal[];
-
-extern const u32 poliwrathTiles[];
-extern const u16 poliwrathPal[];
-
 extern const u32 tentacoolTiles[];
 extern const u16 tentacoolPal[];
+extern const u16 tentacoolShinyPal[];
 
 extern const u32 tentacruelTiles[];
 extern const u16 tentacruelPal[];
-
-extern const u32 slowpokeTiles[];
-extern const u16 slowpokePal[];
-
-extern const u32 slowbroTiles[];
-extern const u16 slowbroPal[];
+extern const u16 tentacruelShinyPal[];
 
 extern const u32 seelTiles[];
 extern const u16 seelPal[];
-
-extern const u32 dewgongTiles[];
-extern const u16 dewgongPal[];
-
-extern const u32 Tiles[];
-extern const u16 Pal[];
-
-extern const u32 Tiles[];
-extern const u16 Pal[];
-
-extern const u32 Tiles[];
-extern const u16 Pal[];
-
-extern const u32 Tiles[];
-extern const u16 Pal[];
-
-extern const u32 Tiles[];
-extern const u16 Pal[];
-
-extern const u32 Tiles[];
-extern const u16 Pal[];
-
+extern const u16 seelShinyPal[];
 
 extern const u32 laprasTiles[];
 extern const u16 laprasPal[];
-//extern const u16 laprasShinyPal[];
+extern const u16 laprasShinyPal[];
 
 extern const u32 wailmerTiles[];
 extern const u16 wailmerPal[];
+extern const u16 wailmerShinyPal[];
 
 /*================================================
 	OVERWORLD FRAMES (by index)
 ================================================*/
-//===== 00 SQUIRTLE
-/*
-const struct SpriteFrameImage gSurfingOverworldPicTable_Squirtle[] = {
-    overworld_frame(&squirtleTiles[0], 4, 4, 1),
-    overworld_frame(&squirtleTiles[0], 4, 4, 0),
-    overworld_frame(&squirtleTiles[0], 4, 4, 3),
-    overworld_frame(&squirtleTiles[0], 4, 4, 2),
-    overworld_frame(&squirtleTiles[0], 4, 4, 5),
-    overworld_frame(&squirtleTiles[0], 4, 4, 4),
-    overworld_frame(&squirtleTiles[0], 4, 4, 7),
-    overworld_frame(&squirtleTiles[0], 4, 4, 6),
-};
-const struct SpriteFrameImage gSurfingOverlayPicTable_Squirtle[] = {
-    overworld_frame(&squirtleTiles[0], 4, 4, 7),
-    overworld_frame(&squirtleTiles[0], 4, 4, 6),
-    overworld_frame(&squirtleTiles[0], 4, 4, 9),
-    overworld_frame(&squirtleTiles[0], 4, 4, 8),
-    overworld_frame(&squirtleTiles[0], 4, 4, 11),
-    overworld_frame(&squirtleTiles[0], 4, 4, 10),
-};
-*/
 
 //===== WARTORTLE
 const struct SpriteFrameImage gSurfingOverworldPicTable_Wartortle[] = {
@@ -149,8 +74,6 @@ const struct SpriteFrameImage gSurfingOverworldPicTable_Wartortle[] = {
     overworld_frame(&wartortleTiles[0], 4, 4, 2),
     overworld_frame(&wartortleTiles[0], 4, 4, 5),
     overworld_frame(&wartortleTiles[0], 4, 4, 4),
-    overworld_frame(&wartortleTiles[0], 4, 4, 7),
-    overworld_frame(&wartortleTiles[0], 4, 4, 6),
 };
 const struct SpriteFrameImage gSurfingOverlayPicTable_Wartortle[] = {
     overworld_frame(&wartortleTiles[0], 4, 4, 7),
@@ -170,7 +93,41 @@ const struct SpriteFrameImage gSurfingOverlayPicTable_Wartortle[] = {
 //===== POLIWHIRL
 //===== POLIWRATH
 //===== TENTACOOL
+const struct SpriteFrameImage gSurfingOverworldPicTable_Tentacool[] = {
+    overworld_frame(&tentacoolTiles[0], 4, 4, 1),
+    overworld_frame(&tentacoolTiles[0], 4, 4, 0),
+    overworld_frame(&tentacoolTiles[0], 4, 4, 3),
+    overworld_frame(&tentacoolTiles[0], 4, 4, 2),
+    overworld_frame(&tentacoolTiles[0], 4, 4, 5),
+    overworld_frame(&tentacoolTiles[0], 4, 4, 4),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Tentacool[] = {
+    overworld_frame(&tentacoolTiles[0], 4, 4, 7),
+    overworld_frame(&tentacoolTiles[0], 4, 4, 6),
+    overworld_frame(&tentacoolTiles[0], 4, 4, 9),
+    overworld_frame(&tentacoolTiles[0], 4, 4, 8),
+    overworld_frame(&tentacoolTiles[0], 4, 4, 11),
+    overworld_frame(&tentacoolTiles[0], 4, 4, 10),
+};
+
 //===== TENTACRUEL
+const struct SpriteFrameImage gSurfingOverworldPicTable_Tentacruel[] = {
+    overworld_frame(&tentacruelTiles[0], 4, 4, 1),
+    overworld_frame(&tentacruelTiles[0], 4, 4, 0),
+    overworld_frame(&tentacruelTiles[0], 4, 4, 3),
+    overworld_frame(&tentacruelTiles[0], 4, 4, 2),
+    overworld_frame(&tentacruelTiles[0], 4, 4, 5),
+    overworld_frame(&tentacruelTiles[0], 4, 4, 4),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Tentacruel[] = {
+    overworld_frame(&tentacruelTiles[0], 4, 4, 7),
+    overworld_frame(&tentacruelTiles[0], 4, 4, 6),
+    overworld_frame(&tentacruelTiles[0], 4, 4, 9),
+    overworld_frame(&tentacruelTiles[0], 4, 4, 8),
+    overworld_frame(&tentacruelTiles[0], 4, 4, 11),
+    overworld_frame(&tentacruelTiles[0], 4, 4, 10),
+};
+
 //===== SLOWPOKE
 //===== SLOWBRO
 //===== SEEL
@@ -181,8 +138,6 @@ const struct SpriteFrameImage gSurfingOverworldPicTable_Seel[] = {
     overworld_frame(&seelTiles[0], 4, 4, 2),
     overworld_frame(&seelTiles[0], 4, 4, 5),
     overworld_frame(&seelTiles[0], 4, 4, 4),
-    overworld_frame(&seelTiles[0], 4, 4, 7),
-    overworld_frame(&seelTiles[0], 4, 4, 6),
 };
 const struct SpriteFrameImage gSurfingOverlayPicTable_Seel[] = {
     overworld_frame(&seelTiles[0], 4, 4, 7),
@@ -217,8 +172,6 @@ const struct SpriteFrameImage gSurfingOverworldPicTable_Lapras[] = {
     overworld_frame(&laprasTiles[0], 4, 4, 2),
     overworld_frame(&laprasTiles[0], 4, 4, 5),
     overworld_frame(&laprasTiles[0], 4, 4, 4),
-    overworld_frame(&laprasTiles[0], 4, 4, 7),
-    overworld_frame(&laprasTiles[0], 4, 4, 6),
 };
 const struct SpriteFrameImage gSurfingOverlayPicTable_Lapras[] = {
     overworld_frame(&laprasTiles[0], 4, 4, 7),
@@ -289,8 +242,6 @@ const struct SpriteFrameImage gSurfingOverworldPicTable_Wailmer[] = {
     overworld_frame(&wailmerTiles[0], 4, 4, 2),
     overworld_frame(&wailmerTiles[0], 4, 4, 5),
     overworld_frame(&wailmerTiles[0], 4, 4, 4),
-    overworld_frame(&wailmerTiles[0], 4, 4, 7),
-    overworld_frame(&wailmerTiles[0], 4, 4, 6),
 };
 const struct SpriteFrameImage gSurfingOverlayPicTable_Wailmer[] = {
     overworld_frame(&wailmerTiles[0], 4, 4, 7),
@@ -342,7 +293,13 @@ const struct SpriteTemplate sWartortleOverlay = surf_template(PAL_TAG_SURF_NEW, 
 //===== POLIWHIRL
 //===== POLIWRATH
 //===== TENTACOOL
+const struct SpriteTemplate sTentacoolOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Tentacool, UpdateSurfBlobFieldEffect);
+const struct SpriteTemplate sTentacoolOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Tentacool, UpdateSurfMonOverlay);
+
 //===== TENTACRUEL
+const struct SpriteTemplate sTentacruelOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Tentacruel, UpdateSurfBlobFieldEffect);
+const struct SpriteTemplate sTentacruelOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Tentacruel, UpdateSurfMonOverlay);
+
 //===== SLOWPOKE
 //===== SLOWBRO
 
@@ -536,17 +493,17 @@ const struct RideableMons gSurfablePokemon[] =
 	},
 	{
 		.species = SPECIES_TENTACOOL,
-		.palAddr = 0,
-		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
-		.overlayGfx = 0,
+		.palAddr = &tentacoolPal[0],
+		.shinyPalAddr = &tentacoolShinyPal[0],
+		.overworldGfx = &sTentacoolOverworld,
+		.overlayGfx = &sTentacoolOverlay,
 	},
 	{
 		.species = SPECIES_TENTACRUEL,
-		.palAddr = 0,
-		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
-		.overlayGfx = 0,
+		.palAddr = &tentacruelPal[0],
+		.shinyPalAddr = &tentacruelShinyPal[0],
+		.overworldGfx = &sTentacruelOverworld,
+		.overlayGfx = &sTentacruelOverlay,
 	},
 	{
 		.species = SPECIES_SLOWPOKE,
@@ -565,7 +522,7 @@ const struct RideableMons gSurfablePokemon[] =
 	{
 		.species = SPECIES_SEEL,
 		.palAddr = &seelPal[0],
-		.shinyPalAddr = 0,
+		.shinyPalAddr = &seelShinyPal[0],
 		.overworldGfx = &sSeelOverworld,
 		.overlayGfx = &sSeelOverlay,
 	},
@@ -1041,7 +998,7 @@ const struct RideableMons gSurfablePokemon[] =
 	{
 		.species = SPECIES_WAILMER,
 		.palAddr = &wailmerPal[0],
-		.shinyPalAddr = 0,
+		.shinyPalAddr = &wailmerShinyPal[0],
 		.overworldGfx = &sWailmerOverworld,
 		.overlayGfx = &sWailmerOverlay,
 	},

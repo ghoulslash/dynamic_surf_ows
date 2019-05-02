@@ -58,8 +58,6 @@ const struct SpriteFrameImage gSurfingOverworldPicTable_Popplio[] = {
     overworld_frame(&popplioTiles[0], 4, 4, 2),
     overworld_frame(&popplioTiles[0], 4, 4, 5),
     overworld_frame(&popplioTiles[0], 4, 4, 4),
-    overworld_frame(&popplioTiles[0], 4, 4, 7),
-    overworld_frame(&popplioTiles[0], 4, 4, 6),
 };
 ```
 
