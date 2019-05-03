@@ -1,3 +1,4 @@
+#include "config.h"
 /*
 you only need one pal tag based on the way they are now loaded.
 If you want more, uncomment out UNIQUE_TAGS in config.h and assign each to the species in gSurfablePokemon
