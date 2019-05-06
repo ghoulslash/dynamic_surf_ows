@@ -47,6 +47,7 @@ extern const u16 wartortleShinyPal[];
 
 extern const u32 blastoiseTiles[];
 extern const u16 blastoisePal[];
+extern const u16 blastoiseShinyPal[];
 
 extern const u32 tentacoolTiles[];
 extern const u16 tentacoolPal[];
@@ -530,7 +531,7 @@ const struct RideableMons gSurfablePokemon[] =
 	{
 		.species = SPECIES_BLASTOISE,
 		.palAddr = &blastoisePal[0],
-		.shinyPalAddr = 0,
+		.shinyPalAddr = &blastoiseShinyPal[0],
 		.overworldGfx = &sBlastoiseOverworld,
 		.overlayGfx = &sBlastoiseOverlay,
 	},
