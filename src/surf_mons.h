@@ -37,10 +37,16 @@ const struct Coords16 sDirectionToVectors[] = {
 extern const u32 surfBlobTiles[];
 extern const u16 surfBlobPal[];
 
+extern const u32 squirtleTiles[];
+extern const u16 squirtlePal[];
+extern const u16 squirtleShinyPal[];
 
 extern const u32 wartortleTiles[];
 extern const u16 wartortlePal[];
 extern const u16 wartortleShinyPal[];
+
+extern const u32 blastoiseTiles[];
+extern const u16 blastoisePal[];
 
 extern const u32 tentacoolTiles[];
 extern const u16 tentacoolPal[];
@@ -54,9 +60,17 @@ extern const u32 seelTiles[];
 extern const u16 seelPal[];
 extern const u16 seelShinyPal[];
 
+extern const u32 dewgongTiles[];
+extern const u16 dewgongPal[];
+extern const u16 dewgongShinyPal[];
+
 extern const u32 laprasTiles[];
 extern const u16 laprasPal[];
 extern const u16 laprasShinyPal[];
+
+extern const u32 vaporeonTiles[];
+extern const u16 vaporeonPal[];
+extern const u16 vaporeonShinyPal[];
 
 extern const u32 wailmerTiles[];
 extern const u16 wailmerPal[];
@@ -65,6 +79,23 @@ extern const u16 wailmerShinyPal[];
 /*================================================
 	OVERWORLD FRAMES (by index)
 ================================================*/
+//===== SQUIRTLE
+const struct SpriteFrameImage gSurfingOverworldPicTable_Squirtle[] = {
+    overworld_frame(&squirtleTiles[0], 4, 4, 1),
+    overworld_frame(&squirtleTiles[0], 4, 4, 0),
+    overworld_frame(&squirtleTiles[0], 4, 4, 3),
+    overworld_frame(&squirtleTiles[0], 4, 4, 2),
+    overworld_frame(&squirtleTiles[0], 4, 4, 5),
+    overworld_frame(&squirtleTiles[0], 4, 4, 4),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Squirtle[] = {
+    overworld_frame(&squirtleTiles[0], 4, 4, 7),
+    overworld_frame(&squirtleTiles[0], 4, 4, 6),
+    overworld_frame(&squirtleTiles[0], 4, 4, 9),
+    overworld_frame(&squirtleTiles[0], 4, 4, 8),
+    overworld_frame(&squirtleTiles[0], 4, 4, 11),
+    overworld_frame(&squirtleTiles[0], 4, 4, 10),
+};
 
 //===== WARTORTLE
 const struct SpriteFrameImage gSurfingOverworldPicTable_Wartortle[] = {
@@ -85,6 +116,23 @@ const struct SpriteFrameImage gSurfingOverlayPicTable_Wartortle[] = {
 };
 
 //===== BLASTOISE
+const struct SpriteFrameImage gSurfingOverworldPicTable_Blastoise[] = {
+    overworld_frame(&blastoiseTiles[0], 4, 4, 1),
+    overworld_frame(&blastoiseTiles[0], 4, 4, 0),
+    overworld_frame(&blastoiseTiles[0], 4, 4, 3),
+    overworld_frame(&blastoiseTiles[0], 4, 4, 2),
+    overworld_frame(&blastoiseTiles[0], 4, 4, 5),
+    overworld_frame(&blastoiseTiles[0], 4, 4, 4),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Blastoise[] = {
+    overworld_frame(&blastoiseTiles[0], 4, 4, 7),
+    overworld_frame(&blastoiseTiles[0], 4, 4, 6),
+    overworld_frame(&blastoiseTiles[0], 4, 4, 9),
+    overworld_frame(&blastoiseTiles[0], 4, 4, 8),
+    overworld_frame(&blastoiseTiles[0], 4, 4, 11),
+    overworld_frame(&blastoiseTiles[0], 4, 4, 10),
+};
+	
 //===== NIDOQUEEN
 //===== NIDOKING
 //===== PSYDUCK
@@ -116,8 +164,8 @@ const struct SpriteFrameImage gSurfingOverworldPicTable_Tentacruel[] = {
     overworld_frame(&tentacruelTiles[0], 4, 4, 0),
     overworld_frame(&tentacruelTiles[0], 4, 4, 3),
     overworld_frame(&tentacruelTiles[0], 4, 4, 2),
-    overworld_frame(&tentacruelTiles[0], 4, 4, 5),
     overworld_frame(&tentacruelTiles[0], 4, 4, 4),
+    overworld_frame(&tentacruelTiles[0], 4, 4, 5),
 };
 const struct SpriteFrameImage gSurfingOverlayPicTable_Tentacruel[] = {
     overworld_frame(&tentacruelTiles[0], 4, 4, 7),
@@ -149,6 +197,23 @@ const struct SpriteFrameImage gSurfingOverlayPicTable_Seel[] = {
 };
 
 //===== DEWGONG
+const struct SpriteFrameImage gSurfingOverworldPicTable_Dewgong[] = {
+    overworld_frame(&dewgongTiles[0], 4, 4, 1),
+    overworld_frame(&dewgongTiles[0], 4, 4, 0),
+    overworld_frame(&dewgongTiles[0], 4, 4, 3),
+    overworld_frame(&dewgongTiles[0], 4, 4, 2),
+    overworld_frame(&dewgongTiles[0], 4, 4, 5),
+    overworld_frame(&dewgongTiles[0], 4, 4, 4),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Dewgong[] = {
+    overworld_frame(&dewgongTiles[0], 4, 4, 7),
+    overworld_frame(&dewgongTiles[0], 4, 4, 6),
+    overworld_frame(&dewgongTiles[0], 4, 4, 9),
+    overworld_frame(&dewgongTiles[0], 4, 4, 8),
+    overworld_frame(&dewgongTiles[0], 4, 4, 11),
+    overworld_frame(&dewgongTiles[0], 4, 4, 10),
+};
+
 //===== SHELLDER
 //===== CLOYSTER
 //===== KRABBY
@@ -183,6 +248,23 @@ const struct SpriteFrameImage gSurfingOverlayPicTable_Lapras[] = {
 };
 
 //===== VAPOREON
+const struct SpriteFrameImage gSurfingOverworldPicTable_Vaporeon[] = {
+    overworld_frame(&vaporeonTiles[0], 4, 4, 1),
+    overworld_frame(&vaporeonTiles[0], 4, 4, 0),
+    overworld_frame(&vaporeonTiles[0], 4, 4, 3),
+    overworld_frame(&vaporeonTiles[0], 4, 4, 2),
+    overworld_frame(&vaporeonTiles[0], 4, 4, 5),
+    overworld_frame(&vaporeonTiles[0], 4, 4, 4),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Vaporeon[] = {
+    overworld_frame(&vaporeonTiles[0], 4, 4, 7),
+    overworld_frame(&vaporeonTiles[0], 4, 4, 6),
+    overworld_frame(&vaporeonTiles[0], 4, 4, 9),
+    overworld_frame(&vaporeonTiles[0], 4, 4, 8),
+    overworld_frame(&vaporeonTiles[0], 4, 4, 11),
+    overworld_frame(&vaporeonTiles[0], 4, 4, 10),
+};
+
 //===== OMANYTE
 //===== OMASTAR
 //===== KABUTO
@@ -278,13 +360,17 @@ const struct SpriteFrameImage gSurfingOverlayPicTable_Wailmer[] = {
 	SPRITE TEMPLATES
 ==================================================*/
 //===== SQUIRTLE
+const struct SpriteTemplate sSquirtleOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Squirtle, UpdateSurfBlobFieldEffect);
+const struct SpriteTemplate sSquirtleOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Squirtle, UpdateSurfMonOverlay);
 
 //===== WARTORTLE
 const struct SpriteTemplate sWartortleOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Wartortle, UpdateSurfBlobFieldEffect);
 const struct SpriteTemplate sWartortleOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Wartortle, UpdateSurfMonOverlay);
 
-
 //===== BLASTOISE
+const struct SpriteTemplate sBlastoiseOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Blastoise, UpdateSurfBlobFieldEffect);
+const struct SpriteTemplate sBlastoiseOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Blastoise, UpdateSurfMonOverlay);
+
 //===== NIDOQUEEN
 //===== NIDOKING
 //===== PSYDUCK
@@ -308,6 +394,9 @@ const struct SpriteTemplate sSeelOverworld = surf_template(PAL_TAG_SURF_NEW, gSu
 const struct SpriteTemplate sSeelOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Seel, UpdateSurfMonOverlay);
 
 //===== DEWGONG
+const struct SpriteTemplate sDewgongOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Dewgong, UpdateSurfBlobFieldEffect);
+const struct SpriteTemplate sDewgongOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Dewgong, UpdateSurfMonOverlay);
+
 //===== SHELLDER
 //===== CLOYSTER
 //===== KRABBY
@@ -329,6 +418,9 @@ const struct SpriteTemplate sLaprasOverworld = surf_template(PAL_TAG_SURF_NEW, g
 const struct SpriteTemplate sLaprasOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Lapras, UpdateSurfMonOverlay);
 
 //===== VAPOREON
+const struct SpriteTemplate sVaporeonOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Vaporeon, UpdateSurfBlobFieldEffect);
+const struct SpriteTemplate sVaporeonOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Vaporeon, UpdateSurfMonOverlay);
+
 //===== OMANYTE
 //===== OMASTAR
 //===== KABUTO
@@ -423,10 +515,10 @@ const struct RideableMons gSurfablePokemon[] =
 {
 	{
 		.species = SPECIES_SQUIRTLE,
-		.palAddr = 0,
-		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
-		.overlayGfx = 0,
+		.palAddr = &squirtlePal[0],
+		.shinyPalAddr = &squirtleShinyPal[0],
+		.overworldGfx = &sSquirtleOverworld,
+		.overlayGfx = &sSquirtleOverlay,
 	},
 	{
 		.species = SPECIES_WARTORTLE,
@@ -437,10 +529,10 @@ const struct RideableMons gSurfablePokemon[] =
 	},
 	{
 		.species = SPECIES_BLASTOISE,
-		.palAddr = 0,
+		.palAddr = &blastoisePal[0],
 		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
-		.overlayGfx = 0,
+		.overworldGfx = &sBlastoiseOverworld,
+		.overlayGfx = &sBlastoiseOverlay,
 	},
 	{
 		.species = SPECIES_NIDOQUEEN,
@@ -528,10 +620,10 @@ const struct RideableMons gSurfablePokemon[] =
 	},
 	{
 		.species = SPECIES_DEWGONG,
-		.palAddr = 0,
+		.palAddr = &dewgongPal[0],
 		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
-		.overlayGfx = 0,
+		.overworldGfx = &sDewgongOverworld,
+		.overlayGfx = &sDewgongOverlay,
 	},
 	{
 		.species = SPECIES_SHELLDER,
@@ -641,16 +733,16 @@ const struct RideableMons gSurfablePokemon[] =
 	{
 		.species = SPECIES_LAPRAS,
 		.palAddr = &laprasPal[0],
-		.shinyPalAddr = 0,
+		.shinyPalAddr = &laprasShinyPal[0],
 		.overworldGfx = &sLaprasOverworld,
 		.overlayGfx = &sLaprasOverlay,
 	},
 	{
 		.species = SPECIES_VAPOREON,
-		.palAddr = 0,
-		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
-		.overlayGfx = 0,
+		.palAddr = &vaporeonPal[0],
+		.shinyPalAddr = &vaporeonShinyPal[0],
+		.overworldGfx = &sVaporeonOverworld,
+		.overlayGfx = &sVaporeonOverlay,
 	},
 	{
 		.species = SPECIES_OMANYTE,
