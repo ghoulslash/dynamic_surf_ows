@@ -34,6 +34,9 @@ const struct Coords16 sDirectionToVectors[] = {
 };
 
 // Images
+/*==============================
+GEN I
+==============================*/
 extern const u32 surfBlobTiles[];
 extern const u16 surfBlobPal[];
 
@@ -49,6 +52,34 @@ extern const u32 blastoiseTiles[];
 extern const u16 blastoisePal[];
 extern const u16 blastoiseShinyPal[];
 
+//extern const u32 nidoqueenTiles[];
+//extern const u16 nidoqueenPal[];
+//extern const u16 nidoqueenShinyPal[];
+
+//extern const u32 nidokingTiles[];
+//extern const u16 nidokingPal[];
+//extern const u16 nidokingShinyPal[];
+
+extern const u32 psyduckTiles[];
+extern const u16 psyduckPal[];
+extern const u16 psyduckShinyPal[];
+
+extern const u32 golduckTiles[];
+extern const u16 golduckPal[];
+extern const u16 golduckShinyPal[];
+
+//extern const u32 poliwagTiles[];
+//extern const u16 poliwagPal[];
+//extern const u16 poliwagShinyPal[];
+
+//extern const u32 poliwhirlTiles[];
+//extern const u16 poliwhirlPal[];
+//extern const u16 poliwhirlShinyPal[];
+
+//extern const u32 poliwrathTiles[];
+//extern const u16 poliwrathPal[];
+//extern const u16 poliwrathShinyPal[];
+
 extern const u32 tentacoolTiles[];
 extern const u16 tentacoolPal[];
 extern const u16 tentacoolShinyPal[];
@@ -56,6 +87,14 @@ extern const u16 tentacoolShinyPal[];
 extern const u32 tentacruelTiles[];
 extern const u16 tentacruelPal[];
 extern const u16 tentacruelShinyPal[];
+
+//extern const u32 slowpokeTiles[];
+//extern const u16 slowpokePal[];
+//extern const u16 slowpokeShinyPal[];
+
+//extern const u32 slowbroTiles[];
+//extern const u16 slowbroPal[];
+//extern const u16 slowbroShinyPal[];
 
 extern const u32 seelTiles[];
 extern const u16 seelPal[];
@@ -65,6 +104,66 @@ extern const u32 dewgongTiles[];
 extern const u16 dewgongPal[];
 extern const u16 dewgongShinyPal[];
 
+//extern const u32 shellderTiles[];
+//extern const u16 shellderPal[];
+//extern const u16 shellderShinyPal[];
+
+//extern const u32 cloysterTiles[];
+//extern const u16 cloysterPal[];
+//extern const u16 cloysterShinyPal[];
+
+//extern const u32 krabbyTiles[];
+//extern const u16 krabbyPal[];
+//extern const u16 krabbyShinyPal[];
+
+//extern const u32 kinglerTiles[];
+//extern const u16 kinglerPal[];
+//extern const u16 kinglerShinyPal[];
+
+//extern const u32 lickitungTiles[];
+//extern const u16 lickitungPal[];
+//extern const u16 lickitungShinyPal[];
+
+//extern const u32 rhydonTiles[];
+//extern const u16 rhydonPal[];
+//extern const u16 rhydonShinyPal[];
+
+//extern const u32 kangaskhanTiles[];
+//extern const u16 kangaskhanPal[];
+//extern const u16 kangaskhanShinyPal[];
+
+//extern const u32 horseaTiles[];
+//extern const u16 horseaPal[];
+//extern const u16 horseaShinyPal[];
+
+//extern const u32 seadraTiles[];
+//extern const u16 seadraPal[];
+//extern const u16 seadraShinyPal[];
+
+//extern const u32 goldeenTiles[];
+//extern const u16 goldeenPal[];
+//extern const u16 goldeenShinyPal[];
+
+//extern const u32 seakingTiles[];
+//extern const u16 seakingPal[];
+//extern const u16 seakingShinyPal[];
+
+//extern const u32 staryuTiles[];
+//extern const u16 staryuPal[];
+//extern const u16 staryuShinyPal[];
+
+//extern const u32 starmieTiles[];
+//extern const u16 starmiePal[];
+//extern const u16 starmieShinyPal[];
+
+//extern const u32 taurosTiles[];
+//extern const u16 taurosPal[];
+//extern const u16 taurosShinyPal[];
+
+//extern const u32 gyaradosTiles[];
+//extern const u16 gyaradosPal[];
+//extern const u16 gyaradosShinyPal[];
+
 extern const u32 laprasTiles[];
 extern const u16 laprasPal[];
 extern const u16 laprasShinyPal[];
@@ -73,9 +172,290 @@ extern const u32 vaporeonTiles[];
 extern const u16 vaporeonPal[];
 extern const u16 vaporeonShinyPal[];
 
+//extern const u32 omanyteTiles[];
+//extern const u16 omanytePal[];
+//extern const u16 omanyteShinyPal[];
+
+//extern const u32 omastarTiles[];
+//extern const u16 omastarPal[];
+//extern const u16 omastarShinyPal[];
+
+//extern const u32 kabutoTiles[];
+//extern const u16 kabutoPal[];
+//extern const u16 kabutoShinyPal[];
+
+//extern const u32 kabutopsTiles[];
+//extern const u16 kabutopsPal[];
+//extern const u16 kabutopsShinyPal[];
+
+//extern const u32 snorlaxTiles[];
+//extern const u16 snorlaxPal[];
+//extern const u16 snorlaxShinyPal[];
+
+//extern const u32 dratiniTiles[];
+//extern const u16 dratiniPal[];
+//extern const u16 dratiniShinyPal[];
+
+//extern const u32 dragonairTiles[];
+//extern const u16 dragonairPal[];
+//extern const u16 dragonairShinyPal[];
+
+//extern const u32 dragoniteTiles[];
+//extern const u16 dragonitePal[];
+//extern const u16 dragoniteShinyPal[];
+
+//extern const u32 mewTiles[];
+//extern const u16 mewPal[];
+//extern const u16 mewShinyPal[];
+
+/*==============================
+GEN II
+==============================*/
+//extern const u32 totodileTiles[];
+//extern const u16 totodilePal[];
+//extern const u16 totodileShinyPal[];
+
+//extern const u32 croconawTiles[];
+//extern const u16 croconawPal[];
+//extern const u16 croconawShinyPal[];
+
+//extern const u32 feraligatrTiles[];
+//extern const u16 feraligatrPal[];
+//extern const u16 feraligatrShinyPal[];
+
+//extern const u32 sentretTiles[];
+//extern const u16 sentretPal[];
+//extern const u16 sentretShinyPal[];
+
+//extern const u32 furretTiles[];
+//extern const u16 furretPal[];
+//extern const u16 furretShinyPal[];
+
+//extern const u32 chinchouTiles[];
+//extern const u16 chinchouPal[];
+//extern const u16 chinchouShinyPal[];
+
+//extern const u32 lanturnTiles[];
+//extern const u16 lanturnPal[];
+//extern const u16 lanturnShinyPal[];
+
+//extern const u32 marillTiles[];
+//extern const u16 marillPal[];
+//extern const u16 marillShinyPal[];
+
+//extern const u32 azumarillTiles[];
+//extern const u16 azumarillPal[];
+//extern const u16 azumarillShinyPal[];
+
+//extern const u32 politoedTiles[];
+//extern const u16 politoedPal[];
+//extern const u16 politoedShinyPal[];
+
+//extern const u32 wooperTiles[];
+//extern const u16 wooperPal[];
+//extern const u16 wooperShinyPal[];
+
+//extern const u32 quagsireTiles[];
+//extern const u16 quagsirePal[];
+//extern const u16 quagsireShinyPal[];
+
+//extern const u32 slowkingTiles[];
+//extern const u16 slowkingPal[];
+//extern const u16 slowkingShinyPal[];
+
+//extern const u32 qwilfishTiles[];
+//extern const u16 qwilfishPal[];
+//extern const u16 qwilfishShinyPal[];
+
+//extern const u32 sneaselTiles[];
+//extern const u16 sneaselPal[];
+//extern const u16 sneaselShinyPal[];
+
+//extern const u32 corsolaTiles[];
+//extern const u16 corsolaPal[];
+//extern const u16 corsolaShinyPal[];
+
+//extern const u32 remoraidTiles[];
+//extern const u16 remoraidPal[];
+//extern const u16 remoraidShinyPal[];
+
+//extern const u32 octilleryTiles[];
+//extern const u16 octilleryPal[];
+//extern const u16 octilleryShinyPal[];
+
+//extern const u32 mantineTiles[];
+//extern const u16 mantinePal[];
+//extern const u16 mantineShinyPal[];
+
+//extern const u32 kingdraTiles[];
+//extern const u16 kingdraPal[];
+//extern const u16 kingdraShinyPal[];
+
+//extern const u32 miltankTiles[];
+//extern const u16 miltankPal[];
+//extern const u16 miltankShinyPal[];
+
+//extern const u32 suicuneTiles[];
+//extern const u16 suicunePal[];
+//extern const u16 suicuneShinyPal[];
+
+//extern const u32 tyranitarTiles[];
+//extern const u16 tyranitarPal[];
+//extern const u16 tyranitarShinyPal[];
+
+//extern const u32 lugiaTiles[];
+//extern const u16 lugiaPal[];
+//extern const u16 lugiaShinyPal[];
+
+
+/*==============================
+GEN III
+==============================*/
+//extern const u32 mudkipTiles[];
+//extern const u16 mudkipPal[];
+//extern const u16 mudkipShinyPal[];
+
+//extern const u32 marshtompTiles[];
+//extern const u16 marshtompPal[];
+//extern const u16 marshtompShinyPal[];
+
+//extern const u32 swampertTiles[];
+//extern const u16 swampertPal[];
+//extern const u16 swampertShinyPal[];
+
+//extern const u32 zigzagoonTiles[];
+//extern const u16 zigzagoonPal[];
+//extern const u16 zigzagoonShinyPal[];
+
+//extern const u32 linooneTiles[];
+//extern const u16 linoonePal[];
+//extern const u16 linooneShinyPal[];
+
+//extern const u32 lotadTiles[];
+//extern const u16 lotadPal[];
+//extern const u16 lotadShinyPal[];
+
+//extern const u32 lombreTiles[];
+//extern const u16 lombrePal[];
+//extern const u16 lombreShinyPal[];
+
+//extern const u32 ludicoloTiles[];
+//extern const u16 ludicoloPal[];
+//extern const u16 ludicoloShinyPal[];
+
+//extern const u32 pelipperTiles[];
+//extern const u16 pelipperPal[];
+//extern const u16 pelipperShinyPal[];
+
+//extern const u32 exploudTiles[];
+//extern const u16 exploudPal[];
+//extern const u16 exploudShinyPal[];
+
+//extern const u32 makuhitaTiles[];
+//extern const u16 makuhitaPal[];
+//extern const u16 makuhitaShinyPal[];
+
+//extern const u32 hariyamaTiles[];
+//extern const u16 hariyamaPal[];
+//extern const u16 hariyamaShinyPal[];
+
+//extern const u32 azurillTiles[];
+//extern const u16 azurillPal[];
+//extern const u16 azurillShinyPal[];
+
+//extern const u32 aggronTiles[];
+//extern const u16 aggronPal[];
+//extern const u16 aggronShinyPal[];
+
+//extern const u32 carvanhaTiles[];
+//extern const u16 carvanhaPal[];
+//extern const u16 carvanhaShinyPal[];
+
+//extern const u32 sharpedoTiles[];
+//extern const u16 sharpedoPal[];
+//extern const u16 sharpedoShinyPal[];
+
 extern const u32 wailmerTiles[];
 extern const u16 wailmerPal[];
 extern const u16 wailmerShinyPal[];
+
+//extern const u32 wailordTiles[];
+//extern const u16 wailordPal[];
+//extern const u16 wailordShinyPal[];
+
+//extern const u32 barboachTiles[];
+//extern const u16 barboachPal[];
+//extern const u16 barboachShinyPal[];
+
+//extern const u32 whiscashTiles[];
+//extern const u16 whiscashPal[];
+//extern const u16 whiscashShinyPal[];
+
+//extern const u32 corphishTiles[];
+//extern const u16 corphishPal[];
+//extern const u16 corphishShinyPal[];
+
+//extern const u32 crawdauntTiles[];
+//extern const u16 crawdauntPal[];
+//extern const u16 crawdauntShinyPal[];
+
+//extern const u32 feebasTiles[];
+//extern const u16 feebasPal[];
+//extern const u16 feebasShinyPal[];
+
+//extern const u32 miloticTiles[];
+//extern const u16 miloticPal[];
+//extern const u16 miloticShinyPal[];
+
+//extern const u32 sphealTiles[];
+//extern const u16 sphealPal[];
+//extern const u16 sphealShinyPal[];
+
+//extern const u32 sealeoTiles[];
+//extern const u16 sealeoPal[];
+//extern const u16 sealeoShinyPal[];
+
+//extern const u32 walreinTiles[];
+//extern const u16 walreinPal[];
+//extern const u16 walreinShinyPal[];
+
+//extern const u32 clamperlTiles[];
+//extern const u16 clamperlPal[];
+//extern const u16 clamperlShinyPal[];
+
+//extern const u32 huntailTiles[];
+//extern const u16 huntailPal[];
+//extern const u16 huntailShinyPal[];
+
+//extern const u32 gorebyssTiles[];
+//extern const u16 gorebyssPal[];
+//extern const u16 gorebyssShinyPal[];
+
+//extern const u32 relicanthTiles[];
+//extern const u16 relicanthPal[];
+//extern const u16 relicanthShinyPal[];
+
+//extern const u32 luvdiscTiles[];
+//extern const u16 luvdiscPal[];
+//extern const u16 luvdiscShinyPal[];
+
+//extern const u32 latiasTiles[];
+//extern const u16 latiasPal[];
+//extern const u16 latiasShinyPal[];
+
+//extern const u32 latiosTiles[];
+//extern const u16 latiosPal[];
+//extern const u16 latiosShinyPal[];
+
+//extern const u32 kyogreTiles[];
+//extern const u16 kyogrePal[];
+//extern const u16 kyogreShinyPal[];
+
+//extern const u32 rayquazaTiles[];
+//extern const u16 rayquazaPal[];
+//extern const u16 rayquazaShinyPal[];
+
+
 
 /*================================================
 	OVERWORLD FRAMES (by index)
@@ -137,7 +517,41 @@ const struct SpriteFrameImage gSurfingOverlayPicTable_Blastoise[] = {
 //===== NIDOQUEEN
 //===== NIDOKING
 //===== PSYDUCK
+const struct SpriteFrameImage gSurfingOverworldPicTable_Psyduck[] = {
+    overworld_frame(&psyduckTiles[0], 4, 4, 0),
+    overworld_frame(&psyduckTiles[0], 4, 4, 1),
+    overworld_frame(&psyduckTiles[0], 4, 4, 2),
+    overworld_frame(&psyduckTiles[0], 4, 4, 3),
+    overworld_frame(&psyduckTiles[0], 4, 4, 4),
+    overworld_frame(&psyduckTiles[0], 4, 4, 5),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Psyduck[] = {
+    overworld_frame(&psyduckTiles[0], 4, 4, 6),
+    overworld_frame(&psyduckTiles[0], 4, 4, 7),
+    overworld_frame(&psyduckTiles[0], 4, 4, 8),
+    overworld_frame(&psyduckTiles[0], 4, 4, 9),
+    overworld_frame(&psyduckTiles[0], 4, 4, 10),
+    overworld_frame(&psyduckTiles[0], 4, 4, 11),
+};
+
 //===== GOLDUCK
+const struct SpriteFrameImage gSurfingOverworldPicTable_Golduck[] = {
+    overworld_frame(&golduckTiles[0], 4, 4, 0),
+    overworld_frame(&golduckTiles[0], 4, 4, 1),
+    overworld_frame(&golduckTiles[0], 4, 4, 2),
+    overworld_frame(&golduckTiles[0], 4, 4, 3),
+    overworld_frame(&golduckTiles[0], 4, 4, 4),
+    overworld_frame(&golduckTiles[0], 4, 4, 5),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Golduck[] = {
+    overworld_frame(&golduckTiles[0], 4, 4, 6),
+    overworld_frame(&golduckTiles[0], 4, 4, 7),
+    overworld_frame(&golduckTiles[0], 4, 4, 8),
+    overworld_frame(&golduckTiles[0], 4, 4, 9),
+    overworld_frame(&golduckTiles[0], 4, 4, 10),
+    overworld_frame(&golduckTiles[0], 4, 4, 11),
+};
+
 //===== POLIWAG
 //===== POLIWHIRL
 //===== POLIWRATH
@@ -375,7 +789,13 @@ const struct SpriteTemplate sBlastoiseOverlay = surf_template(PAL_TAG_SURF_NEW, 
 //===== NIDOQUEEN
 //===== NIDOKING
 //===== PSYDUCK
+const struct SpriteTemplate sPsyduckOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Psyduck, UpdateSurfBlobFieldEffect);
+const struct SpriteTemplate sPsyduckOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Psyduck, UpdateSurfMonOverlay);
+
 //===== GOLDUCK
+const struct SpriteTemplate sGolduckOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Golduck, UpdateSurfBlobFieldEffect);
+const struct SpriteTemplate sGolduckOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Golduck, UpdateSurfMonOverlay);
+
 //===== POLIWAG
 //===== POLIWHIRL
 //===== POLIWRATH
@@ -551,17 +971,17 @@ const struct RideableMons gSurfablePokemon[] =
 	},
 	{
 		.species = SPECIES_PSYDUCK,
-		.palAddr = 0,
-		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
-		.overlayGfx = 0,
+		.palAddr = &psyduckPal[0],
+		.shinyPalAddr = &psyduckShinyPal[0],
+		.overworldGfx = &sPsyduckOverworld,
+		.overlayGfx = &sPsyduckOverlay,
 	},
 	{
 		.species = SPECIES_GOLDUCK,
-		.palAddr = 0,
-		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
-		.overlayGfx = 0,
+		.palAddr = &golduckPal[0],
+		.shinyPalAddr = &golduckShinyPal[0],
+		.overworldGfx = &sGolduckOverworld,
+		.overlayGfx = &sGolduckOverlay,
 	},
 	{
 		.species = SPECIES_POLIWAG,
