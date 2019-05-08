@@ -88,13 +88,13 @@ extern const u32 tentacruelTiles[];
 extern const u16 tentacruelPal[];
 extern const u16 tentacruelShinyPal[];
 
-//extern const u32 slowpokeTiles[];
-//extern const u16 slowpokePal[];
-//extern const u16 slowpokeShinyPal[];
+extern const u32 slowpokeTiles[];
+extern const u16 slowpokePal[];
+extern const u16 slowpokeShinyPal[];
 
-//extern const u32 slowbroTiles[];
-//extern const u16 slowbroPal[];
-//extern const u16 slowbroShinyPal[];
+extern const u32 slowbroTiles[];
+extern const u16 slowbroPal[];
+extern const u16 slowbroShinyPal[];
 
 extern const u32 seelTiles[];
 extern const u16 seelPal[];
@@ -592,7 +592,41 @@ const struct SpriteFrameImage gSurfingOverlayPicTable_Tentacruel[] = {
 };
 
 //===== SLOWPOKE
+const struct SpriteFrameImage gSurfingOverworldPicTable_Slowpoke[] = {
+    overworld_frame(&slowpokeTiles[0], 4, 4, 0),
+    overworld_frame(&slowpokeTiles[0], 4, 4, 1),
+    overworld_frame(&slowpokeTiles[0], 4, 4, 2),
+    overworld_frame(&slowpokeTiles[0], 4, 4, 3),
+    overworld_frame(&slowpokeTiles[0], 4, 4, 4),
+    overworld_frame(&slowpokeTiles[0], 4, 4, 5),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Slowpoke[] = {
+    overworld_frame(&slowpokeTiles[0], 4, 4, 6),
+    overworld_frame(&slowpokeTiles[0], 4, 4, 7),
+    overworld_frame(&slowpokeTiles[0], 4, 4, 8),
+    overworld_frame(&slowpokeTiles[0], 4, 4, 9),
+    overworld_frame(&slowpokeTiles[0], 4, 4, 10),
+    overworld_frame(&slowpokeTiles[0], 4, 4, 11),
+};
+	
 //===== SLOWBRO
+const struct SpriteFrameImage gSurfingOverworldPicTable_Slowbro[] = {
+    overworld_frame(&slowbroTiles[0], 4, 4, 0),
+    overworld_frame(&slowbroTiles[0], 4, 4, 1),
+    overworld_frame(&slowbroTiles[0], 4, 4, 2),
+    overworld_frame(&slowbroTiles[0], 4, 4, 3),
+    overworld_frame(&slowbroTiles[0], 4, 4, 4),
+    overworld_frame(&slowbroTiles[0], 4, 4, 5),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Slowbro[] = {
+    overworld_frame(&slowbroTiles[0], 4, 4, 6),
+    overworld_frame(&slowbroTiles[0], 4, 4, 7),
+    overworld_frame(&slowbroTiles[0], 4, 4, 8),
+    overworld_frame(&slowbroTiles[0], 4, 4, 9),
+    overworld_frame(&slowbroTiles[0], 4, 4, 10),
+    overworld_frame(&slowbroTiles[0], 4, 4, 11),
+};
+	
 //===== SEEL
 const struct SpriteFrameImage gSurfingOverworldPicTable_Seel[] = {
     overworld_frame(&seelTiles[0], 4, 4, 1),
@@ -808,7 +842,12 @@ const struct SpriteTemplate sTentacruelOverworld = surf_template(PAL_TAG_SURF_NE
 const struct SpriteTemplate sTentacruelOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Tentacruel, UpdateSurfMonOverlay);
 
 //===== SLOWPOKE
+const struct SpriteTemplate sSlowpokeOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Slowpoke, UpdateSurfBlobFieldEffect);
+const struct SpriteTemplate sSlowpokeOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Slowpoke, UpdateSurfMonOverlay);
+
 //===== SLOWBRO
+const struct SpriteTemplate sSlowbroOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Slowbro, UpdateSurfBlobFieldEffect);
+const struct SpriteTemplate sSlowbroOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Slowbro, UpdateSurfMonOverlay);
 
 //===== SEEL
 const struct SpriteTemplate sSeelOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Seel, UpdateSurfBlobFieldEffect);
@@ -1020,17 +1059,17 @@ const struct RideableMons gSurfablePokemon[] =
 	},
 	{
 		.species = SPECIES_SLOWPOKE,
-		.palAddr = 0,
-		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
-		.overlayGfx = 0,
+		.palAddr = &slowpokePal[0],
+		.shinyPalAddr = &slowpokeShinyPal[0],
+		.overworldGfx = &sSlowpokeOverworld,
+		.overlayGfx = &sSlowpokeOverlay,
 	},
 	{
 		.species = SPECIES_SLOWBRO,
-		.palAddr = 0,
-		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
-		.overlayGfx = 0,
+		.palAddr = &slowbroPal[0],
+		.shinyPalAddr = &slowbroShinyPal[0],
+		.overworldGfx = &sSlowbroOverworld,
+		.overlayGfx = &sSlowbroOverlay,
 	},
 	{
 		.species = SPECIES_SEEL,
