@@ -148,13 +148,13 @@ extern const u16 dewgongShinyPal[];
 //extern const u16 seakingPal[];
 //extern const u16 seakingShinyPal[];
 
-//extern const u32 staryuTiles[];
-//extern const u16 staryuPal[];
-//extern const u16 staryuShinyPal[];
+extern const u32 staryuTiles[];
+extern const u16 staryuPal[];
+extern const u16 staryuShinyPal[];
 
-//extern const u32 starmieTiles[];
-//extern const u16 starmiePal[];
-//extern const u16 starmieShinyPal[];
+extern const u32 starmieTiles[];
+extern const u16 starmiePal[];
+extern const u16 starmieShinyPal[];
 
 //extern const u32 taurosTiles[];
 //extern const u16 taurosPal[];
@@ -407,17 +407,17 @@ extern const u16 wailmerShinyPal[];
 //extern const u16 miloticPal[];
 //extern const u16 miloticShinyPal[];
 
-//extern const u32 sphealTiles[];
-//extern const u16 sphealPal[];
-//extern const u16 sphealShinyPal[];
+extern const u32 sphealTiles[];
+extern const u16 sphealPal[];
+extern const u16 sphealShinyPal[];
 
-//extern const u32 sealeoTiles[];
-//extern const u16 sealeoPal[];
-//extern const u16 sealeoShinyPal[];
+extern const u32 sealeoTiles[];
+extern const u16 sealeoPal[];
+extern const u16 sealeoShinyPal[];
 
-//extern const u32 walreinTiles[];
-//extern const u16 walreinPal[];
-//extern const u16 walreinShinyPal[];
+extern const u32 walreinTiles[];
+extern const u16 walreinPal[];
+extern const u16 walreinShinyPal[];
 
 //extern const u32 clamperlTiles[];
 //extern const u16 clamperlPal[];
@@ -675,7 +675,41 @@ const struct SpriteFrameImage gSurfingOverlayPicTable_Dewgong[] = {
 //===== GOLDEEN
 //===== SEAKING
 //===== STARYU
+const struct SpriteFrameImage gSurfingOverworldPicTable_Staryu[] = {
+    overworld_frame(&staryuTiles[0], 4, 4, 0),
+    overworld_frame(&staryuTiles[0], 4, 4, 1),
+    overworld_frame(&staryuTiles[0], 4, 4, 2),
+    overworld_frame(&staryuTiles[0], 4, 4, 3),
+    overworld_frame(&staryuTiles[0], 4, 4, 4),
+    overworld_frame(&staryuTiles[0], 4, 4, 5),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Staryu[] = {
+    overworld_frame(&staryuTiles[0], 4, 4, 6),
+    overworld_frame(&staryuTiles[0], 4, 4, 7),
+    overworld_frame(&staryuTiles[0], 4, 4, 8),
+    overworld_frame(&staryuTiles[0], 4, 4, 9),
+    overworld_frame(&staryuTiles[0], 4, 4, 10),
+    overworld_frame(&staryuTiles[0], 4, 4, 11),
+};
+
 //===== STARMIE
+const struct SpriteFrameImage gSurfingOverworldPicTable_Starmie[] = {
+    overworld_frame(&starmieTiles[0], 4, 4, 0),
+    overworld_frame(&starmieTiles[0], 4, 4, 1),
+    overworld_frame(&starmieTiles[0], 4, 4, 2),
+    overworld_frame(&starmieTiles[0], 4, 4, 3),
+    overworld_frame(&starmieTiles[0], 4, 4, 4),
+    overworld_frame(&starmieTiles[0], 4, 4, 5),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Starmie[] = {
+    overworld_frame(&starmieTiles[0], 4, 4, 6),
+    overworld_frame(&starmieTiles[0], 4, 4, 7),
+    overworld_frame(&starmieTiles[0], 4, 4, 8),
+    overworld_frame(&starmieTiles[0], 4, 4, 9),
+    overworld_frame(&starmieTiles[0], 4, 4, 10),
+    overworld_frame(&starmieTiles[0], 4, 4, 11),
+};
+
 //===== TAUROS
 //===== GYARADOS
 //===== LAPRAS
@@ -791,8 +825,51 @@ const struct SpriteFrameImage gSurfingOverlayPicTable_Wailmer[] = {
 //===== FEEBAS
 //===== MILOTIC
 //===== SPHEAL
+const struct SpriteFrameImage gSurfingOverworldPicTable_Spheal[] = {
+    overworld_frame(&sphealTiles[0], 4, 4, 0),
+    overworld_frame(&sphealTiles[0], 4, 4, 1),
+    overworld_frame(&sphealTiles[0], 4, 4, 2),
+    overworld_frame(&sphealTiles[0], 4, 4, 3),
+    overworld_frame(&sphealTiles[0], 4, 4, 4),
+    overworld_frame(&sphealTiles[0], 4, 4, 5),
+};
+
 //===== SEALEO
+const struct SpriteFrameImage gSurfingOverworldPicTable_Sealeo[] = {
+    overworld_frame(&sealeoTiles[0], 4, 4, 0),
+    overworld_frame(&sealeoTiles[0], 4, 4, 1),
+    overworld_frame(&sealeoTiles[0], 4, 4, 2),
+    overworld_frame(&sealeoTiles[0], 4, 4, 3),
+    overworld_frame(&sealeoTiles[0], 4, 4, 4),
+    overworld_frame(&sealeoTiles[0], 4, 4, 5),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Sealeo[] = {
+    overworld_frame(&sealeoTiles[0], 4, 4, 6),
+    overworld_frame(&sealeoTiles[0], 4, 4, 7),
+    overworld_frame(&sealeoTiles[0], 4, 4, 8),
+    overworld_frame(&sealeoTiles[0], 4, 4, 9),
+    overworld_frame(&sealeoTiles[0], 4, 4, 10),
+    overworld_frame(&sealeoTiles[0], 4, 4, 11),
+};
+
 //===== WALREIN
+const struct SpriteFrameImage gSurfingOverworldPicTable_Walrein[] = {
+    overworld_frame(&walreinTiles[0], 4, 4, 0),
+    overworld_frame(&walreinTiles[0], 4, 4, 1),
+    overworld_frame(&walreinTiles[0], 4, 4, 2),
+    overworld_frame(&walreinTiles[0], 4, 4, 3),
+    overworld_frame(&walreinTiles[0], 4, 4, 4),
+    overworld_frame(&walreinTiles[0], 4, 4, 5),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Walrein[] = {
+    overworld_frame(&walreinTiles[0], 4, 4, 6),
+    overworld_frame(&walreinTiles[0], 4, 4, 7),
+    overworld_frame(&walreinTiles[0], 4, 4, 8),
+    overworld_frame(&walreinTiles[0], 4, 4, 9),
+    overworld_frame(&walreinTiles[0], 4, 4, 10),
+    overworld_frame(&walreinTiles[0], 4, 4, 11),
+};
+
 //===== CLAMPERL
 //===== HUNTAIL
 //===== GOREBYSS
@@ -869,7 +946,13 @@ const struct SpriteTemplate sDewgongOverlay = surf_template(PAL_TAG_SURF_NEW, gS
 //===== GOLDEEN
 //===== SEAKING
 //===== STARYU
+const struct SpriteTemplate sStaryuOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Staryu, UpdateSurfBlobFieldEffect);
+const struct SpriteTemplate sStaryuOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Staryu, UpdateSurfMonOverlay);
+
 //===== STARMIE
+const struct SpriteTemplate sStarmieOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Starmie, UpdateSurfBlobFieldEffect);
+const struct SpriteTemplate sStarmieOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Starmie, UpdateSurfMonOverlay);
+
 //===== TAUROS
 //===== GYARADOS
 
@@ -945,8 +1028,16 @@ const struct SpriteTemplate sWailmerOverlay = surf_template(PAL_TAG_SURF_NEW, gS
 //===== FEEBAS
 //===== MILOTIC
 //===== SPHEAL
+const struct SpriteTemplate sSphealOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Spheal, UpdateSurfBlobFieldEffect);
+
 //===== SEALEO
+const struct SpriteTemplate sSealeoOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Sealeo, UpdateSurfBlobFieldEffect);
+const struct SpriteTemplate sSealeoOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Sealeo, UpdateSurfMonOverlay);
+
 //===== WALREIN
+const struct SpriteTemplate sWalreinOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Walrein, UpdateSurfBlobFieldEffect);
+const struct SpriteTemplate sWalreinOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Walrein, UpdateSurfMonOverlay);
+
 //===== CLAMPERL
 //===== HUNTAIL
 //===== GOREBYSS
@@ -1164,17 +1255,17 @@ const struct RideableMons gSurfablePokemon[] =
 	},
 	{
 		.species = SPECIES_STARYU,
-		.palAddr = 0,
-		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
-		.overlayGfx = 0,
+		.palAddr = &staryuPal[0],
+		.shinyPalAddr = &staryuShinyPal[0],
+		.overworldGfx = &sStaryuOverworld,
+		.overlayGfx = &sStaryuOverlay,
 	},
 	{
 		.species = SPECIES_STARMIE,
-		.palAddr = 0,
-		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
-		.overlayGfx = 0,
+		.palAddr = &starmiePal[0],
+		.shinyPalAddr = &starmieShinyPal[0],
+		.overworldGfx = &sStarmieOverworld,
+		.overlayGfx = &sStarmieOverlay,
 	},
 	{
 		.species = SPECIES_TAUROS,
@@ -1605,24 +1696,24 @@ const struct RideableMons gSurfablePokemon[] =
 	},
 	{
 		.species = SPECIES_SPHEAL,
-		.palAddr = 0,
-		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
+		.palAddr = &sphealPal[0],
+		.shinyPalAddr = &sphealShinyPal[0],
+		.overworldGfx = &sSphealOverworld,
 		.overlayGfx = 0,
 	},
 	{
 		.species = SPECIES_SEALEO,
-		.palAddr = 0,
-		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
-		.overlayGfx = 0,
+		.palAddr = &sealeoPal[0],
+		.shinyPalAddr = &sealeoShinyPal[0],
+		.overworldGfx = &sSealeoOverworld,
+		.overlayGfx = &sSealeoOverlay,
 	},
 	{
 		.species = SPECIES_WALREIN,
-		.palAddr = 0,
-		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
-		.overlayGfx = 0,
+		.palAddr = &walreinPal[0],
+		.shinyPalAddr = &walreinShinyPal[0],
+		.overworldGfx = &sWalreinOverworld,
+		.overlayGfx = &sWalreinOverlay,
 	},
 	{
 		.species = SPECIES_CLAMPERL,
