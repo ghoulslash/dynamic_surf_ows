@@ -46,48 +46,39 @@ if you want to add new species that can learn surf, follow these steps. I will u
 
 2a. add the indexed image .png file to graphics/. Eg. `popplio.png`
 
-2b. modify the palette of said image for the sprite's shiny colors, then place this image in graphics/shiny, eg. `popplioShiny.png`. Only the palette will get inserted into the rom, so make sure it can be applied to the original image.
+2b. modify the palette of said image for the sprite's shiny colors, then place this image in graphics/shiny, eg. `popplioShiny.png`. Only the palette will get inserted into the rom, so make sure it can be applied to the original image without messing up the appearance.
 
-3. add the following at the top of `surf_mons.h`
+3. add the following to surf_mons.h
 ```
 extern const u32 popplioTiles[];
 extern const u16 popplioPal[];
 extern const u16 popplioShinyPal[];
-```
 
-4. copy one of the overworld frame templates as so:
-```
 const struct SpriteFrameImage gSurfingOverworldPicTable_Popplio[] = {
-    overworld_frame(&popplioTiles[0], 4, 4, 1),
     overworld_frame(&popplioTiles[0], 4, 4, 0),
-    overworld_frame(&popplioTiles[0], 4, 4, 3),
+    overworld_frame(&popplioTiles[0], 4, 4, 1),
     overworld_frame(&popplioTiles[0], 4, 4, 2),
-    overworld_frame(&popplioTiles[0], 4, 4, 5),
+    overworld_frame(&popplioTiles[0], 4, 4, 3),
     overworld_frame(&popplioTiles[0], 4, 4, 4),
+    overworld_frame(&popplioTiles[0], 4, 4, 5),
 };
-```
 
-5. If your sprite has any body parts you want covering the player (they should be part of the image, frames 6-12):
-```
 const struct SpriteFrameImage gSurfingOverlayPicTable_Popplio[] = {
-    overworld_frame(&popplioTiles[0], 4, 4, 7),
     overworld_frame(&popplioTiles[0], 4, 4, 6),
-    overworld_frame(&popplioTiles[0], 4, 4, 9),
+    overworld_frame(&popplioTiles[0], 4, 4, 7),
     overworld_frame(&popplioTiles[0], 4, 4, 8),
-    overworld_frame(&popplioTiles[0], 4, 4, 11),
+    overworld_frame(&popplioTiles[0], 4, 4, 9),
     overworld_frame(&popplioTiles[0], 4, 4, 10),
+    overworld_frame(&popplioTiles[0], 4, 4, 11),
 };
+
+sPopplioOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Popplio, UpdateSurfBlobFieldEffect)
+sPopplioOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Popplio, UpdateSurfMonOverlay)
 ```
 
-6. Construct a sprite template for the main overworld sprite as so:
-`const struct SpriteTemplate sPopplioOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Popplio, UpdateSurfBlobFieldEffect)`. If you are using unique palette tags, `PAL_TAG_SURF_NEW` should be `PAL_TAG_POPPLIO_SURF` or whatever
+4. If you do not have any overlay frames, the sprite sheet only needs to be 32x192 (6 frames), and do not need to define the `OverlayPicTable`. Also, if you want unique palette tags, `PAL_TAG_SURF_NEW` should be `PAL_TAG_POPPLIO_SURF` or whatever you want to call it, instead.
 
-7. If you have overlay frames:
-`const struct SpriteTemplate sPopplioOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Popplio, UpdateSurfMonOverlay)`
-
-If there are no overlay frames, you can simply set the `gSurfablePokemon.overlayGfx` element to 0 (see Step 9). The palette tag is included in the surf_template define to allow a user to allow each sprite a unique palette tag.
-
-8. Finally, add the following to the gSurfablePokemon structure at the bottom of the page. Note that I changed the structures from the pokeemerald source so you shouldn't have to worry about matching indices, since there is one main structure that defines the surfable pokemon
+5. Finally, add the following to the `gSurfablePokemon` structure at the bottom of the page. Note that I changed the structures from the pokeemerald source so you shouldn't have to worry about matching indices, since there is one main structure that defines the surfable pokemon
 ```
 {
   .species = SPECIES_POPPLIO,
