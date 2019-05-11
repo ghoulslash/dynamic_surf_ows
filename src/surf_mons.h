@@ -259,9 +259,9 @@ GEN II
 //extern const u16 quagsirePal[];
 //extern const u16 quagsireShinyPal[];
 
-//extern const u32 slowkingTiles[];
-//extern const u16 slowkingPal[];
-//extern const u16 slowkingShinyPal[];
+extern const u32 slowkingTiles[];
+extern const u16 slowkingPal[];
+extern const u16 slowkingShinyPal[];
 
 //extern const u32 qwilfishTiles[];
 //extern const u16 qwilfishPal[];
@@ -771,6 +771,23 @@ const struct SpriteFrameImage gSurfingOverlayPicTable_Vaporeon[] = {
 //===== WOOPER
 //===== QUAGSIRE
 //===== SLOWKING
+const struct SpriteFrameImage gSurfingOverworldPicTable_Slowking[] = {
+    overworld_frame(&slowkingTiles[0], 4, 4, 0),
+    overworld_frame(&slowkingTiles[0], 4, 4, 1),
+    overworld_frame(&slowkingTiles[0], 4, 4, 2),
+    overworld_frame(&slowkingTiles[0], 4, 4, 3),
+    overworld_frame(&slowkingTiles[0], 4, 4, 4),
+    overworld_frame(&slowkingTiles[0], 4, 4, 5),
+};
+const struct SpriteFrameImage gSurfingOverlayPicTable_Slowking[] = {
+    overworld_frame(&slowkingTiles[0], 4, 4, 6),
+    overworld_frame(&slowkingTiles[0], 4, 4, 7),
+    overworld_frame(&slowkingTiles[0], 4, 4, 8),
+    overworld_frame(&slowkingTiles[0], 4, 4, 9),
+    overworld_frame(&slowkingTiles[0], 4, 4, 10),
+    overworld_frame(&slowkingTiles[0], 4, 4, 11),
+};
+
 //===== QWILFISH
 //===== SNEASEL
 //===== CORSOLA
@@ -987,6 +1004,9 @@ const struct SpriteTemplate sVaporeonOverlay = surf_template(PAL_TAG_SURF_NEW, g
 //===== WOOPER
 //===== QUAGSIRE
 //===== SLOWKING
+const struct SpriteTemplate sSlowkingOverworld = surf_template(PAL_TAG_SURF_NEW, gSurfingOverworldPicTable_Slowking, UpdateSurfBlobFieldEffect);
+const struct SpriteTemplate sSlowkingOverlay = surf_template(PAL_TAG_SURF_NEW, gSurfingOverlayPicTable_Slowking, UpdateSurfMonOverlay);
+
 //===== QWILFISH
 //===== SNEASEL
 //===== CORSOLA
@@ -1172,7 +1192,7 @@ const struct RideableMons gSurfablePokemon[] =
 	{
 		.species = SPECIES_DEWGONG,
 		.palAddr = &dewgongPal[0],
-		.shinyPalAddr = 0,
+		.shinyPalAddr = &dewgongShinyPal[0],
 		.overworldGfx = &sDewgongOverworld,
 		.overlayGfx = &sDewgongOverlay,
 	},
@@ -1444,10 +1464,10 @@ const struct RideableMons gSurfablePokemon[] =
 	},
 	{
 		.species = SPECIES_SLOWKING,
-		.palAddr = 0,
-		.shinyPalAddr = 0,
-		.overworldGfx = sDefaultSurfBlob,
-		.overlayGfx = 0,
+		.palAddr = &slowkingPal[0],
+		.shinyPalAddr = &slowkingShinyPal[0],
+		.overworldGfx = &sSlowkingOverworld,
+		.overlayGfx = &sSlowkingOverlay,
 	},
 	{
 		.species = SPECIES_QWILFISH,
