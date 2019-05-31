@@ -709,7 +709,7 @@ struct BrmData {
     u8 mode:2;
     u8 unk8_2:2;
     s8 selectedPoke;		//0x9
-    s8 unkA;
+    s8 surfPoke;
     u8 unkB;
     u16 unkC;
     s16 unkE;

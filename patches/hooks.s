@@ -36,6 +36,20 @@
 .global GetFadeType1
 .global GetFadeType2
 
+.global SetSurfPokemenuSelection
+
+.align 2
+.pool
+SetSurfPokemenuSelection:
+	bl StorePokemenuIndex
+	ldr r1, =(0x0203b0c4)
+	ldr r0, =(0x0812497d)
+	str r0, [r1]
+	mov r0, #0x1
+	add sp, #0x4
+	pop {r4, pc}
+	
+
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ DYNAMIC OVERWORLD PALETTES
 

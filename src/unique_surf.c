@@ -52,11 +52,20 @@ u8 FindOrLoadSurfPalette(u16 surfIndex, u16 PalTag) {
 
 u16 GetSurfMonSpecies(void) {
     u8 i;
+	u16 species;
+	
+	if (gBrmData->surfPoke != 6)
+	{
+		species = GetMonData(&gPlayerParty[gBrmData->surfPoke], MON_DATA_SPECIES, NULL);
+		gBrmData->surfPoke = 6;
+		return species;
+	}
+	
     for (i = 0; i < 6; ++i)
     {
         if (MonHasMove(&gPlayerParty[i], MOVE_SURF))
         {
-            u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
+            species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
 			Var8000 = i;	// position in party
             return species;
         }
@@ -233,4 +242,9 @@ u32 CreateSurfablePokemonSprite(void) {
 };
 
 
+
+void StorePokemenuIndex(void)
+{
+	gBrmData->surfPoke = gBrmData->selectedPoke;	
+}
 

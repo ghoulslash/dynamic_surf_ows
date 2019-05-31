@@ -39,3 +39,6 @@ FindPalette 080089E8 1
 FindOrLoadPalette 08008928 1
 PaletteNeedsFogBrightening 0807A748 1
 LoadCloudOrSandstormPalette 0807ABC0 1
+
+## Set Surf
+SetSurfPokemenuSelection 081249E4 0
