@@ -37,6 +37,7 @@
 .global GetFadeType2
 
 .global SetSurfPokemenuSelection
+.global ResetSurfPokemenuSelection
 
 .align 2
 .pool
@@ -48,6 +49,17 @@ SetSurfPokemenuSelection:
 	mov r0, #0x1
 	add sp, #0x4
 	pop {r4, pc}
+	
+.align 2
+.pool
+ResetSurfPokemenuSelection:
+	bl ResetPokemenuIndex
+	mov r0, #0x0
+	ldr r1, =(0x0805C808 +1)
+	bl CallByR1
+	mov r1, r0
+	ldr r0, =(0x0805D268 +1)
+	bx r0
 	
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

@@ -42,3 +42,4 @@ LoadCloudOrSandstormPalette 0807ABC0 1
 
 ## Set Surf
 SetSurfPokemenuSelection 081249E4 0
+ResetSurfPokemenuSelection 0805D260 0

@@ -57,7 +57,8 @@ u16 GetSurfMonSpecies(void) {
 	if (gBrmData->surfPoke != 0)
 	{
 		species = GetMonData(&gPlayerParty[gBrmData->surfPoke-1], MON_DATA_SPECIES, NULL);
-		gBrmData->surfPoke = 0;
+		Var8000 = gBrmData->surfPoke-1;
+		//gBrmData->surfPoke = 0;
 		return species;
 	}
 	
@@ -246,5 +247,11 @@ u32 CreateSurfablePokemonSprite(void) {
 void StorePokemenuIndex(void)
 {
 	gBrmData->surfPoke = gBrmData->selectedPoke+1;	
+}
+
+
+void ResetPokemenuIndex(void)
+{
+	gBrmData->surfPoke = 0;
 }
 
