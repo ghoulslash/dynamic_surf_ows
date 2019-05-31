@@ -38,6 +38,7 @@
 
 .global SetSurfPokemenuSelection
 .global ResetSurfPokemenuSelection
+.global UpdateSurfPokemonSelection
 
 .align 2
 .pool
@@ -60,6 +61,19 @@ ResetSurfPokemenuSelection:
 	mov r1, r0
 	ldr r0, =(0x0805D268 +1)
 	bx r0
+	
+.align 2
+.pool
+UpdateSurfPokemonSelection:
+	bl UpdatePokemenuIndex
+	ldrb r0, [r4, #0xA]
+	ldr r1, =(0x811F234 +1)
+	bl CallByR1
+	mov r0, #0x9
+	ldrb r0, [r4, r0]
+	ldr r1, =(0x081232EE +1)
+	bx r1
+	
 	
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

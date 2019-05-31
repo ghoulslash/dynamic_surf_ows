@@ -68,6 +68,7 @@ u16 GetSurfMonSpecies(void) {
         {
             species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
 			Var8000 = i;	// position in party
+			gBrmData->surfPoke = i+1;
             return species;
         }
     }
@@ -246,12 +247,21 @@ u32 CreateSurfablePokemonSprite(void) {
 
 void StorePokemenuIndex(void)
 {
-	gBrmData->surfPoke = gBrmData->selectedPoke+1;	
+	gBrmData->surfPoke = gBrmData->currentSlot + 1;	
 }
 
 
 void ResetPokemenuIndex(void)
 {
 	gBrmData->surfPoke = 0;
+}
+
+
+void UpdatePokemenuIndex(void)
+{
+	if ((gBrmData->currentSlot)+1 == (gBrmData->surfPoke) && (gPlayerAvatar->flags & PLAYER_AVATAR_FLAG_SURFING))
+	{
+		gBrmData->surfPoke = gBrmData->slotToSwitchTo+1;
+	}
 }
 

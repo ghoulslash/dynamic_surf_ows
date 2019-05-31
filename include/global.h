@@ -708,14 +708,14 @@ struct BrmData {
 	/*0x8*/ u8 unk8_0:4;	
     u8 mode:2;
     u8 unk8_2:2;
-    /*0x9*/ s8 selectedPoke;
-    /*0xA*/ s8 selectedPoke2;
+    /*0x9*/ u8 currentSlot;
+    /*0xA*/ u8 slotToSwitchTo;
     /*0xB*/ u8 unkB;
     /*0xC*/ u16 unkC;
     /*0xE*/ s16 unkE;
     /*0x10*/ s16 unk10;
 	/*0x12*/ u8 surfPoke;	//unused in game (0x0203B0B2)
-	/*0x13*/ u8 empty13;	//unused in game (0x0203B0B3)
+	/*0x13*/ u8 field13;	//unused
 };
 
 struct MenuChoiceStruct {
