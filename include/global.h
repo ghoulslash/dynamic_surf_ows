@@ -703,17 +703,19 @@ struct Bitmap           // TODO: Find a better spot for this
 extern u8 gReservedSpritePaletteCount;
 
 struct BrmData {
-	MainCallback exitCallback;	//0x0-0x3
-	u32 unk4;			//0x4-0x7
-	u8 unk8_0:4;			//0x8		
+	/*0x0*/ MainCallback exitCallback;
+	/*0x4*/ u32 unk4;			
+	/*0x8*/ u8 unk8_0:4;	
     u8 mode:2;
     u8 unk8_2:2;
-    s8 selectedPoke;		//0x9
-    s8 surfPoke;
-    u8 unkB;
-    u16 unkC;
-    s16 unkE;
-    s16 unk10;
+    /*0x9*/ s8 selectedPoke;
+    /*0xA*/ s8 selectedPoke2;
+    /*0xB*/ u8 unkB;
+    /*0xC*/ u16 unkC;
+    /*0xE*/ s16 unkE;
+    /*0x10*/ s16 unk10;
+	/*0x12*/ u8 surfPoke;	//unused in game (0x0203B0B2)
+	/*0x13*/ u8 empty13;	//unused in game (0x0203B0B3)
 };
 
 struct MenuChoiceStruct {
