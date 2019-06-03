@@ -12,6 +12,10 @@ It has, in my opinion, a few improved features:
 
 2. The palette is directly loaded from an address rather than using a tag. A tag is still needed for tracking the palette, but there is no need to add the palette to the NPC palette table. This means you only need one tag for all surf sprites, since only one will exist at the same time.
 
+3. Switching Pokemon mid-surf will not change the surf blob
+
+4. Selecting a Pokemon from the pokemenu loads the correct graphics
+
 =====================================================
 
 Important Notes:
