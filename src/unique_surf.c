@@ -259,9 +259,14 @@ void ResetPokemenuIndex(void)
 
 void UpdatePokemenuIndex(void)
 {
-	if ((gBrmData->currentSlot)+1 == (gBrmData->surfPoke) && (gPlayerAvatar->flags & PLAYER_AVATAR_FLAG_SURFING))
+	if (gPlayerAvatar->flags & PLAYER_AVATAR_FLAG_SURFING)
 	{
-		gBrmData->surfPoke = gBrmData->slotToSwitchTo+1;
+		if ((gBrmData->currentSlot)+1 == gBrmData->surfPoke)
+			// switch current surfing mon to other slot
+			gBrmData->surfPoke = gBrmData->slotToSwitchTo+1;
+		else if ((gBrmData->slotToSwitchTo)+1 == gBrmData->surfPoke)
+			// switch another surfer into surfing mon slot
+			gBrmData->surfPoke = gBrmData->currentSlot+1;
 	}
 }
 
