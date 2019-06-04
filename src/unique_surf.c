@@ -119,7 +119,8 @@ void CreateOverlaySprite(u16 index) {
         sprite->data[3] = -1;
         sprite->data[6] = -1;
         sprite->data[7] = -1;
-        sprite->oam.priority = 1;
+        //sprite->oam.priority = 1;
+		sprite->subpriority = 1;
     }
     BindObj(overlaySprite, 1);
 };
