@@ -6,7 +6,7 @@ What Is This?
 
 This is a feature, originally from pokeem, (see https://github.com/Slawter666/pokeemerald/tree/surfable/src), to have the surfing sprite dynamically change based on the first party pokemon or selected pokemon from the menu.
 
-It has, in my opinion, a few improved features:
+It has a few improved features:
 
 1. One master structure for all species data, so worrying about matching indexes is no longer an issue
 
@@ -15,6 +15,8 @@ It has, in my opinion, a few improved features:
 3. Switching Pokemon mid-surf will not change the surf blob
 
 4. Selecting a Pokemon from the pokemenu loads the correct graphics
+
+5. The overlay frames are hidden underneath map tiles (eg. treetops over water)
 
 =====================================================
 
