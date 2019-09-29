@@ -44,3 +44,7 @@ LoadCloudOrSandstormPalette 0807ABC0 1
 SetSurfPokemenuSelection 081249E4 0
 ResetSurfPokemenuSelection 0805D260 0
 UpdateSurfPokemonSelection 081232E4 0
+
+
+## Priority
+#BuildSpritePriorities 08006CB8 2

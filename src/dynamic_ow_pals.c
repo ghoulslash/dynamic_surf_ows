@@ -1,8 +1,13 @@
 #include "defines.h"
 #include "config.h"
-#include "../include/field_weather.h"
-//Credit to Navenatox
+#include "../include/dynamic_ow_pals.h"
 
+/*
+dynamic_ow_pals.c
+	handles the dynamic loading and tracking of overworld sprite palettes
+Credit to Navenatox
+*/
+//#define RGB(R, G, B)	(R | G << 5 | B << 10)
 #define Red(Color)		((Color) & 31)
 #define Green(Color)	((Color >> 5) & 31)
 #define Blue(Color)		((Color >> 10) & 31)
@@ -10,67 +15,69 @@
 #define LoadNPCPalette(PalTag, PalSlot) ((void(*)(u16, u8))0x805F538+1)(PalTag, PalSlot)
 #define TintOBJPalette(PalSlot) ((void(*)(u8))0x8083598+1)(PalSlot)
 
-#define OverworldIsActive FuncIsActiveTask(Task_WeatherMain)
-
 #define SetUpDisguise(Arg1, Arg2, PalSlot) ((u8(*)(u8, u8, u8))0x80DCA10+1)(Arg1, Arg2, PalSlot)
 
 #define CpuSetFill (1 << 24)
 
-u8 FindOrLoadNPCPalette(u16 PalTag);
-u8 FindPalRef(u8 Type, u16 PalTag);
-u8 PalRefIncreaseCount(u8 PalSlot);
-u8 AddPalRef(u8 Type, u16 PalTag);
-void MaskPaletteIfFadingIn(u8 PalSlot);
+#define FOG_FADE_COLOUR TintColor(RGB(28, 31, 28))
+#define FOG_BRIGHTEN_INTENSITY 12
 
-typedef struct
+struct PalRef
 {
 	u8 Type;
 	u8 Count;
 	u16 PalTag;
-} PalRef;
+};
 
-typedef struct
+#define sPalRefs ((struct PalRef*) 0x203B7D4) //Make sure to change reference in BT scripts if modified
+
+//This file's functions:
+u16 TintColor(u16 color);
+u8 GetPalTypeByPalTag(u16 palTag);
+u8 FindPalTag(u16 PalTag);
+u8 PalRefIncreaseCount(u8 palSlot);
+void BrightenReflection(u8 palSlot);
+u8 AddPalTag(u16 palTag);
+void MaskPaletteIfFadingIn(u8 palSlot);
+
+u8 AddPalRef(u8 type, u16 palTag)
 {
-	u16 Colors[16];
-} Palette;
-
-typedef struct
-{
-	Palette *Address;
-	u16 PalTag;
-} PalInfo;
-
-typedef void(*TaskFunc)(u8);
-
-u8 AddPalRef(u8 Type, u16 PalTag)
-{
-	int i;
-	for (i = 0; i < 16; i++)
+	for (int i = 0; i < 16; ++i)
 	{
-		if (PalRefs[i].Type == PalTypeUnused)
+		if (sPalRefs[i].Type == PalTypeUnused)
 		{
-			PalRefs[i].Type = Type;
-			PalRefs[i].PalTag = PalTag;
+			sPalRefs[i].Type = type;
+			sPalRefs[i].PalTag = palTag;
 			return i;
 		}
 	}
-	return 0xFF; // no more space
-};
 
+	return 0xFF; //No more space
+}
 
-u8 FindPalRef(u8 Type, u16 PalTag)
+u8 FindPalRef(u8 type, u16 palTag)
 {
-	int i;
-	for (i = 0; i < 16; i++)
+	for (int i = 0; i < 16; ++i)
 	{
-		if (PalRefs[i].Type == Type && PalRefs[i].PalTag == PalTag) return i;
+		if ((sPalRefs[i].Type == type) && (sPalRefs[i].PalTag == palTag))
+			return i;
 	}
-	return 0xFF; // not found
-};
 
-u8 GetFadeTypeByWeather(u8 Weather)
+	return 0xFF; // not found
+}
+
+u8 GetPalTypeByPaletteOffset(u16 offset)
 {
-	switch (Weather)
+	if (&gPlttBufferUnfaded[offset] < gPlttBufferUnfaded2)
+		return 0;
+
+	u8 palSlot = (u32) (&gPlttBufferUnfaded[offset] - gPlttBufferUnfaded2) / 16;
+	return sPalRefs[palSlot].Type;
+}
+
+u8 GetFadeTypeByWeather(u8 weather)
+{
+	switch (weather)
 	{
 		case WEATHER_NONE:
 		case WEATHER_CLOUDS:
@@ -79,330 +86,367 @@ u8 GetFadeTypeByWeather(u8 Weather)
 		case WEATHER_STEADY_SNOW:
 		case WEATHER_SANDSTORM:
 		default:
-			return 0; // normal fade
+			return 0; //Normal fade
+
 		case WEATHER_RAIN_LIGHT:
 		case WEATHER_RAIN_MED:
 		case WEATHER_SHADE:
 		case 13:
-			return 1; // fade and darken
+			return 1; //Fade and darken
+
 		case WEATHER_FOG_1:
 		case WEATHER_FOG_2:
 		case WEATHER_FOG_3:
 		case WEATHER_BUBBLES:
-			return 2; // fade and brighten
+			return 2; //Fade and brighten
+
 		case WEATHER_DROUGHT:
-			return 3; // harsh sunlight
+			return 3; //Harsh sunlight
 	}
-};
+}
 
+u8 GetFadeTypeForCurrentWeather(void)
+{
+	return GetFadeTypeByWeather(gWeatherPtr->currWeather);
+}
 
-u16 TintColor(u16 Color)
+u16 TintColor(u16 color)
 {
 	switch (ColorFilter)
 	{
 		case 1:
 		case 3:
-			TintPalette_GrayScale(&Color, 1);
+			TintPalette_GrayScale(&color, 1);
 			break;
 		case 2:
-			TintPalette_SepiaTone(&Color, 1);
+			TintPalette_SepiaTone(&color, 1);
 			break;
 	}
-	return Color;
-};
+
+	return color;
+}
 
 
-u8 PaletteNeedsFogBrightening(u8 PalSlot) // hook at 0x7A748
+u8 PaletteNeedsFogBrightening(u8 palSlot) // hook at 0x7A748
 {
-	return PalRefs[PalSlot - 16].Type == PalTypeAnimation; // only brighten animations
-};
+	return sPalRefs[palSlot - 16].Type == PalTypeNPC
+		|| sPalRefs[palSlot - 16].Type == PalTypeReflection
+		|| sPalRefs[palSlot - 16].Type == PalTypeAnimation;
+}
 
-u8 GetPalTypeByPalTag(u16 PalTag)
+u8 GetPalTypeByPalTag(u16 palTag)
 {
-	if (PalTag >= 0x1000 && PalTag <= 0x1010)
+	if (palTag >= 0x1000 && palTag <= 0x1010)
 		return PalTypeAnimation;
-	if (PalTag == 0x1200)
-		return PalTypeWeather;
-	return PalTypeOther;
-};
 
-u8 FindPalTag(u16 PalTag)
+	if (palTag == 0x1200)
+		return PalTypeWeather;
+
+	return PalTypeOther;
+}
+
+u8 FindPalTag(u16 palTag)
 {
-	int i;
 	if (PalTagsStart >= 16)
 		return 0xFF;
-	for (i = PalTagsStart; i < 16; i++)
+
+	for (int i = PalTagsStart; i < 16; ++i)
 	{
-		if (PalTags[i] == PalTag)
+		if (PalTags[i] == palTag)
 			return i;
 	}
-	return 0xFF; // not found
-};
 
-u8 FindPalette(u16 PalTag) // hook at 0x89E8 via r1
+	return 0xFF; //Not found
+}
+
+u8 FindPalette(u16 palTag) //Hook at 0x80089E8 via r1
 {
-	if (OverworldIsActive || PalTag == 0x1200)
-		return FindPalRef(GetPalTypeByPalTag(PalTag), PalTag); // 0x1200 is for weather sprites
-	else
-		return FindPalTag(PalTag);
-};
+	if ((FuncIsActiveTask(Task_WeatherMain)) || (palTag == 0x1200))
+		return FindPalRef(GetPalTypeByPalTag(palTag), palTag); // 0x1200 is for weather sprites
 
-u8 PalRefIncreaseCount(u8 PalSlot)
+	return FindPalTag(palTag);
+}
+
+u8 PalRefIncreaseCount(u8 palSlot)
 {
-	PalRefs[PalSlot].Count++;
-	return PalSlot;
-};
+	sPalRefs[palSlot].Count++;
+	return palSlot;
+}
 
-
-void PalRefDecreaseCount(u8 PalSlot)
+void PalRefDecreaseCount(u8 palSlot)
 {
-	if (PalRefs[PalSlot].Count != 0)
-		PalRefs[PalSlot].Count--;
-	if (PalRefs[PalSlot].Count == 0)
+	if (sPalRefs[palSlot].Count != 0)
+		sPalRefs[palSlot].Count--;
+	if (sPalRefs[palSlot].Count == 0)
 	{
-		PalRefs[PalSlot].Type = 0;
-		PalRefs[PalSlot].PalTag = 0;
+		sPalRefs[palSlot].Type = 0;
+		sPalRefs[palSlot].PalTag = 0;
 	}
-};
-
+}
 
 void ClearAllPalRefs(void)
 {
-	int Fill = 0;
-	CpuSet(&Fill, PalRefs, 32 | CpuSetFill);
-};
+	int fill = 0;
+	CpuSet(&fill, sPalRefs, 32 | CpuSetFill);
+}
 
-
-void ClearAllPalettes(void) // hook at 0x5F574 via r0
+void ClearAllPalettes(void) //Hook at 0x5F574 via r0
 {
-	int Fill = 0;
-	CpuSet(&Fill, &gPlttBufferUnfaded[16 * 16], 256 | CpuSetFill);
-};
+	int fill = 0;
+	CpuSet(&fill, &gPlttBufferUnfaded[16 * 16], 256 | CpuSetFill);
+}
 
-void BrightenReflection(u8 PalSlot)
+void BrightenReflection(u8 palSlot)
 {
-	Palette* Pal = (Palette*) &gPlttBufferFaded[PalSlot * 16 + 16 * 16];
-	u16 Color;
 	u8 R, G, B;
-	int i;
-	for (i = 0; i < 16; i++)
+	u16 color;
+	u16* pal = &gPlttBufferFaded[palSlot * 16 + 16 * 16];
+
+	for (int i = 0; i < 16; ++i)
 	{
-		Color = Pal->Colors[i];
-		R = Red(Color) + 5;
-		G = Green(Color) + 5;
-		B = Blue(Color) + 10;
+		color = pal[i];
+		R = Red(color) + 5;
+		G = Green(color) + 5;
+		B = Blue(color) + 10;
 		if (R > 31) R = 31;
 		if (G > 31) G = 31;
 		if (B > 31) B = 31;
-		Pal->Colors[i] = RGB(R, G, B);
+		pal[i] = RGB(R, G, B);
 	}
-	CpuSet(Pal, &gPlttBufferUnfaded[PalSlot * 16 + 16 * 16], 16);
-};
 
+	CpuSet(pal, &gPlttBufferUnfaded[palSlot * 16 + 16 * 16], 16);
+}
 
-
-u8 AddPalTag(u16 PalTag)
+u8 AddPalTag(u16 palTag)
 {
-	int i;
 	if (PalTagsStart >= 16)
 		return 0xFF;
-	for (i = PalTagsStart; i < 16; i++)
+
+	for (int i = PalTagsStart; i < 16; ++i)
 	{
 		if (PalTags[i] == 0xFFFF)
 		{
-			PalTags[i] = PalTag;
+			PalTags[i] = palTag;
 			return i;
 		}
 	}
+
 	return 0xFF; // no more space
-};
+}
 
-
-
-u8 FindOrLoadPalette(PalInfo *Pal) // hook at 0x8928 via r1
+u8 FindOrLoadPalette(struct SpritePalette* pal) //Hook at 0x8928 via r1
 {
-	u8 PalSlot;
-	u16 PalTag = Pal->PalTag;
-	if (OverworldIsActive || PalTag == 0x1200) // 0x1200 is for weather sprites
+	u8 palSlot;
+	u16 palTag = pal->tag;
+
+	if (FuncIsActiveTask(Task_WeatherMain) || palTag == 0x1200) //0x1200 is for weather sprites
 	{
-		PalSlot = FindPalRef(GetPalTypeByPalTag(PalTag), PalTag);
-		if (PalSlot != 0xFF)
-			return PalSlot;
-		PalSlot = AddPalRef(GetPalTypeByPalTag(PalTag), PalTag);
-		if (PalSlot == 0xFF)
+		palSlot = FindPalRef(GetPalTypeByPalTag(palTag), palTag);
+		if (palSlot != 0xFF)
+			return palSlot;
+
+		palSlot = AddPalRef(GetPalTypeByPalTag(palTag), palTag);
+		if (palSlot == 0xFF)
 			return 0xFF;
 	}
 	else
 	{
-		PalSlot = FindPalTag(PalTag);
-		if (PalSlot != 0xFF)
-			return PalSlot;
-		PalSlot = AddPalTag(PalTag);
-		if (PalSlot == 0xFF)
+		palSlot = FindPalTag(palTag);
+		if (palSlot != 0xFF)
+			return palSlot;
+
+		palSlot = AddPalTag(palTag);
+		if (palSlot == 0xFF)
 			return 0xFF;
 	}
-	DoLoadSpritePalette((u16*) Pal->Address, PalSlot * 16);
-	return PalSlot;
-};
 
+	DoLoadSpritePalette(pal->data, palSlot * 16);
+	return palSlot;
+}
 
-void MaskPaletteIfFadingIn(u8 PalSlot) // prevent the palette from flashing briefly before fading starts
+void MaskPaletteIfFadingIn(u8 palSlot) //Prevent the palette from flashing briefly before fading starts
 {
-	u8 FadeState = gWeatherPtr->palProcessingState;
-	u8 AboutToFadeIn = gWeatherPtr->unknown_6CA;
-	if (FadeState == 1 && AboutToFadeIn)
-	{
-		u16 FadeColor = gWeatherPtr->fadeDestColor;
-		CpuSet(&FadeColor, &gPlttBufferFaded[PalSlot * 16 + 16 * 16], 16 | CpuSetFill);
-	}
-};
+	u8 fadeState = gWeatherPtr->palProcessingState;
+	u8 aboutToFadeIn = gWeatherPtr->unknown_6CA;
 
+	if ((fadeState == 1) && (aboutToFadeIn))
+	{
+		u16 fadeColor = gWeatherPtr->fadeDestColor;
+		CpuSet(&fadeColor, &gPlttBufferFaded[palSlot * 16 + 16 * 16], 16 | CpuSetFill);
+	}
+}
 
 u8 GetPalSlotMisc(u32 OBJData)
 {
-	u8 PalSlot;
-	u16 PalTag = *(u16*)(OBJData + 2);
-	if (PalTag == 0xFFFF)
-		return 0xFF;
-	PalSlot = FindPalette(PalTag);
-	if (PalSlot != 0xFF)
-		return PalRefIncreaseCount(PalSlot);
-	if (PalTag != 0x1200)
+	u8 palSlot;
+	u16 palTag = *(u16*)(OBJData + 2);
+	if (palTag == 0xFFFF)
 		return 0xFF;
 
-	// load the rain palette
-	PalSlot = AddPalRef(PalTypeWeather, PalTag);
-	if (PalSlot == 0xFF)
+	palSlot = FindPalette(palTag);
+	if (palSlot != 0xFF)
+		return PalRefIncreaseCount(palSlot);
+
+	if (palTag != 0x1200)
 		return 0xFF;
-	DoLoadSpritePalette((u16*) 0x83C2CE0, PalSlot * 16);
-	TintOBJPalette(PalSlot);
-	MaskPaletteIfFadingIn(PalSlot);
-	return PalRefIncreaseCount(PalSlot);
-};
 
+	//Load the rain palette
+	palSlot = AddPalRef(PalTypeWeather, palTag);
+	if (palSlot == 0xFF)
+		return 0xFF;
 
-u8 FindOrLoadNPCPalette(u16 PalTag)
+	DoLoadSpritePalette((u16*) 0x83C2CE0, palSlot * 16);
+	TintOBJPalette(palSlot);
+	MaskPaletteIfFadingIn(palSlot);
+	return PalRefIncreaseCount(palSlot);
+}
+
+u8 FindOrLoadNPCPalette(u16 palTag)
 {
-	u8 PalSlot;
-	PalSlot = FindPalRef(PalTypeNPC, PalTag);
-	if (PalSlot != 0xFF)
-		return PalRefIncreaseCount(PalSlot);
-	PalSlot = AddPalRef(PalTypeNPC, PalTag);
-	if (PalSlot == 0xFF)
-		return PalRefIncreaseCount(0);	
-	LoadNPCPalette(PalTag, PalSlot);
-	MaskPaletteIfFadingIn(PalSlot);
-	return PalRefIncreaseCount(PalSlot);
-};
+	u8 palSlot = FindPalRef(PalTypeNPC, palTag);
+	if (palSlot != 0xFF)
+		return PalRefIncreaseCount(palSlot);
 
+	palSlot = AddPalRef(PalTypeNPC, palTag);
+	if (palSlot == 0xFF)
+		return PalRefIncreaseCount(0);
 
-u8 FindOrCreateReflectionPalette(u8 PalSlotNPC)
+	LoadNPCPalette(palTag, palSlot);
+	FogBrightenPalettes(FOG_BRIGHTEN_INTENSITY);
+	MaskPaletteIfFadingIn(palSlot);
+	return PalRefIncreaseCount(palSlot);
+}
+
+u8 FindOrCreateReflectionPalette(u8 palSlotNPC)
 {
-	u8 PalSlot;
-	u16 PalTag = PalRefs[PalSlotNPC].PalTag;
-	PalSlot = FindPalRef(PalTypeReflection, PalTag);
-	if (PalSlot != 0xFF)
-		return PalRefIncreaseCount(PalSlot);
-	PalSlot = AddPalRef(PalTypeReflection, PalTag);
-	if (PalSlot == 0xFF)
-		return PalRefIncreaseCount(0);	
-	LoadNPCPalette(PalTag, PalSlot);
-	BlendPalettes(gBitTable[(PalSlot + 16)], 6, RGB(12, 20, 27)); // make it blueish
-	BrightenReflection(PalSlot); // and a little brighter
-	TintOBJPalette(PalSlot);
-	MaskPaletteIfFadingIn(PalSlot);
-	return PalRefIncreaseCount(PalSlot);
-};
+	u16 palTag = sPalRefs[palSlotNPC].PalTag;
+	u8 palSlot = FindPalRef(PalTypeReflection, palTag);
+	if (palSlot != 0xFF)
+		return PalRefIncreaseCount(palSlot);
+
+	palSlot = AddPalRef(PalTypeReflection, palTag);
+	if (palSlot == 0xFF)
+		return PalRefIncreaseCount(0);
+
+	LoadNPCPalette(palTag, palSlot);
+	BlendPalettes(gBitTable[(palSlot + 16)], 6, RGB(12, 20, 27)); //Make it blueish
+	BrightenReflection(palSlot); //And a little brighter
+	TintOBJPalette(palSlot);
+	MaskPaletteIfFadingIn(palSlot);
+	return PalRefIncreaseCount(palSlot);
+}
 
 
-u8 SetUpTreeDisguise(void) // hook at 0xDC9E0 via r3
+u8 SetUpTreeDisguise(void) //Hook at 0xDC9E0 via r3
 {
-	return SetUpDisguise(0x1C, 0x18, FindOrLoadNPCPalette(0x1105));
-};
+	return SetUpDisguise(0x1C, 0x18, FindOrLoadNPCPalette(TREE_DISGUISE_PAL_ID));
+}
 
 
-u8 SetUpRockDisguise(void) // hook at 0xDC9F0 via r3
+u8 SetUpRockDisguise(void) //Hook at 0xDC9F0 via r3
 {
-	return SetUpDisguise(0x1D, 0x19, FindOrLoadNPCPalette(0x1104));
-};
+	return SetUpDisguise(0x1D, 0x19, FindOrLoadNPCPalette(ROCK_DISGUISE_PAL_ID));
+}
 
 
-u8 SetUpWeirdDisguise(void) // hook at 0xDCA00 via r3
+u8 SetUpWeirdDisguise(void) //Hook at 0xDCA00 via r3
 {
-	return SetUpDisguise(0x24, 0x1C, FindOrLoadNPCPalette(0x1103));
-};
+	return SetUpDisguise(0x24, 0x1C, FindOrLoadNPCPalette(WEIRD_DISGUISE_PAL_ID));
+}
 
-void FogBrightenPalettes(u16 BrightenIntensity)
+void FogBrightenPalettes(u16 brightenIntensity)
 {
-	if (GetFadeTypeByWeather(gWeatherPtr->currWeather) != 2)
-		return; // only brighten if there is fog weather
+	u8 currWeather = gWeatherPtr->currWeather;
 	
-	u16 BrightenColor = TintColor(RGB(28, 31, 28));
-	//BlendPalettes(0xFFFF0000, BrightenIntensity, BrightenColor); //Uncomment to fade player on weather fade out
+	if (GetFadeTypeByWeather(currWeather) != 2)
+		return;
 	
 	if (gWeatherPtr->palProcessingState != 3)
 		return; // don't brighten while fading
-	
-	//u16 BrightenColor = TintColor(RGB(28, 31, 28));
-	for (int i = 16; i < 32; i++)
+
+	for (u8 i = 16; i < 32; ++i)
 	{
-		if (PaletteNeedsFogBrightening(i)) 
-			BlendPalette(i * 16, 16, BrightenIntensity, BrightenColor);
+		if (PaletteNeedsFogBrightening(i))
+		{
+			if (currWeather == WEATHER_BUBBLES)
+				FogBrightenAndFade(i, 0x1, RGB(15, 16, 14));
+			else
+				BlendPalette(i * 16, 16, brightenIntensity, FOG_FADE_COLOUR);
+		}
 	}
-};
+}
 
-
-void FogBrightenAndFade(u8 PalSlot, u8 FadeIntensity, u16 FadeColor)
+void FogBrightenAndFade(u8 palSlot, u8 fadeIntensity, u16 fadeColor)
 {
-	u8 BrightenIntensity = AlphaBlendingCoeffA;
-	u16 BrightenColor = TintColor(RGB(28, 31, 28));
-	u16 Color;
 	u8 R, G, B;
-	int i;
-	for (i = 0; i < 16; i++)
+	u16 color;
+	u8 brightenIntensity = AlphaBlendingCoeffA;
+	u16 brightenColor = FOG_FADE_COLOUR;
+
+	for (int i = 0; i < 16; ++i)
 	{
-		Color = gPlttBufferUnfaded[PalSlot * 16 + i];
-		R = Red(Color);
-		G = Green(Color);
-		B = Blue(Color);
+		color = gPlttBufferUnfaded[palSlot * 16 + i];
+		R = Red(color);
+		G = Green(color);
+		B = Blue(color);
 
-		R += (Red(BrightenColor) - R) *  BrightenIntensity / 16;
-		G += (Green(BrightenColor) - G) *  BrightenIntensity / 16;
-		B += (Blue(BrightenColor) - B) *  BrightenIntensity / 16;
+		R += (Red(brightenColor) - R) *  brightenIntensity / 16;
+		G += (Green(brightenColor) - G) *  brightenIntensity / 16;
+		B += (Blue(brightenColor) - B) *  brightenIntensity / 16;
 
-		R += (Red(FadeColor) - R) *  FadeIntensity / 16;
-		G += (Green(FadeColor) - G) *  FadeIntensity / 16;
-		B += (Blue(FadeColor) - B) *  FadeIntensity / 16;
+		R += (Red(fadeColor) - R) *  fadeIntensity / 16;
+		G += (Green(fadeColor) - G) *  fadeIntensity / 16;
+		B += (Blue(fadeColor) - B) *  fadeIntensity / 16;
 
-		gPlttBufferFaded[PalSlot * 16 + i] = RGB(R, G, B);
+		gPlttBufferFaded[palSlot * 16 + i] = RGB(R, G, B);
 	}
-};
+}
 
-
-void LoadCloudOrSandstormPalette(Palette *Pal) // hook at 0x7ABC0 via r1
+void LoadCloudOrSandstormPalette(u16* pal) //Hook at 0x7ABC0 via r1
 {
-	u8 PalSlot;
-	PalSlot = AddPalRef(PalTypeWeather, 0x1200);
-	if (PalSlot == 0xFF)
+	u8 palSlot;
+	palSlot = AddPalRef(PalTypeWeather, 0x1200);
+	if (palSlot == 0xFF)
 		return;
-	DoLoadSpritePalette((u16*) Pal, PalSlot * 16);
-	TintOBJPalette(PalSlot);
-	MaskPaletteIfFadingIn(PalSlot);
-};
 
+	DoLoadSpritePalette(pal, palSlot * 16);
+	TintOBJPalette(palSlot);
+	MaskPaletteIfFadingIn(palSlot);
+}
 
-
-u8 GetDarkeningTypeBySlot(u8 PalSlot) // replaces table at 0x3C2CC0
+//Replaces table at 0x3C2CC0
+u8 GetDarkeningTypeBySlot(u8 palSlot)
 {
-	if (PalSlot < 13)
+	if (palSlot < 13)
 		return 1;
-	if (PalSlot < 16)
+	else if (palSlot < 16)
 		return 0;
-	u8 Type = PalRefs[PalSlot - 16].Type;
-	if (Type == PalTypeNPC || Type == PalTypeWeather)
-		return 2;
-	if (Type == PalTypeAnimation || Type == PalTypeReflection)
-		return 1;
-	return 0;
-};
+	else
+	{
+		switch (sPalRefs[palSlot - 16].Type)
+			{
+			case PalTypeNPC:
+			case PalTypeWeather:
+				return 2;
+				
+			case PalTypeAnimation:
+			case PalTypeReflection:
+				return 1;
+				
+			default:
+				return 0;
+			}
+	}
+}
 
+/*
+extern const u16 HailstormWeatherPal[];
+#define gSandstormWeatherPalette (const u16*) 0x83C2D20
+void LoadPaletteForOverworldSandstorm(void)
+{
+	if (gWeatherPtr->currWeather == WEATHER_STEADY_SNOW) //"Snow"
+		LoadCustomWeatherSpritePalette(HailstormWeatherPal);
+	else
+        LoadCustomWeatherSpritePalette(gSandstormWeatherPalette);
+}
+*/

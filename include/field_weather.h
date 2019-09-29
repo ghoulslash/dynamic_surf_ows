@@ -149,3 +149,5 @@ struct Weather
     s8 loadDroughtPalsIndex;
     u8 loadDroughtPalsOffset;
 };
+
+void __attribute__((long_call)) LoadCustomWeatherSpritePalette(const u16 *palette);

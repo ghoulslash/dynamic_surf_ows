@@ -1,4 +1,9 @@
 
+//SyncDirection = 0x80DC550 | 1;
+sub_80DC588 = 0x80DC588 | 1;
+sub_80DC61C = 0x80DC61C | 1;
+sSpritePriorities = 0x2021780;
+
 LogCoordsCameraRelative = 0x08063BC4 | 1;
 GetMonData = 0x0803FBE8 | 1;
 MapGridGetZCoordAt = 0x08058D44 | 1;
@@ -11,6 +16,8 @@ BindFieldEffectToSprite = 0x080DC44C | 1;
 
 Task_WeatherMain = 0x8079e0c | 1;
 GetCurrentWeather = 0x807AF98 | 1;
+
+LoadCustomWeatherSpritePalette = 0x807ABC0 | 1;
 
 /*Palette Functions*/
 BlendPalette = 0x8045274 | 1;
@@ -160,11 +167,37 @@ surfBlobPal = 0x835b968;
 
 FuncIsActiveTask = 0x8077650 | 1;
 
-CpuSet = 0x81E3B64 | 1;
-CpuFastSet = 0x081E3B60 | 1;
+MonHasMove = 0x08125AC0 | 1;
+
+/* Math Functions */
+Sine = 0x8044E30 | 1;
+Cosine = 0x8044E4C | 1;
+Random = 0x8044EC8 | 1;
+SeedRng2 = 0x8044EE8 | 1;
+CountTrailingZeroBits = 0x8045190 | 1;
+Random2 = 0x808322C | 1;
 Sqrt = 0x81E3B9C | 1;
+__divsi3 = 0x81E4018 | 1;
+__modsi3 = 0x81E40F4 | 1;
+__udivsi3 = 0x81E460C | 1;
 udivsi = 0x81E460C | 1;
+__umodsi3 = 0x81E4684 | 1;
 umodsi = 0x81E4684 | 1;
 
-MonHasMove = 0x08125AC0 | 1;
+Memcpy = 0x81E5E78 | 1;
+memcpy_ = 0x81E5E78 | 1;
+Memset = 0x81E5ED8 | 1;
+memset_ = 0x81E5ED8 | 1;
+
+MallocInit = 0x8002B80 | 1;
+Malloc = 0x8002B9C | 1;
+malloc_ = 0x8002B9C | 1;
+Calloc = 0x8002BB0 | 1;
+AllocZeroed = 0x8002BB0 | 1;
+calloc_ = 0x8002BB0 | 1;
+Free = 0x8002BC4 | 1;
+free_ = 0x8002BC4 | 1;
+
+CpuSet = 0x81E3B64 | 1;
+
 

@@ -20,13 +20,15 @@ bool8 IsShinyOtIdPersonality(u32 otId, u32 personality)
     return retVal;
 }
 
-bool8 IsMonShiny(struct Pokemon *mon) {
+bool8 IsMonShiny(struct Pokemon *mon)
+{
     u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
     u32 personality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
     return IsShinyOtIdPersonality(otId, personality);
 };
 
-void LoadSurfPalette(u16 index, u8 palSlot) {
+void LoadSurfPalette(u16 index, u8 palSlot)
+{
 	u16 offset = ((palSlot << 0x14) + 0x1000000) >> 0x10;
 	if (IsMonShiny(&gPlayerParty[Var8000]) && gSurfablePokemon[index].shinyPalAddr != 0)
 		LoadPalette(gSurfablePokemon[index].shinyPalAddr, offset, 0x20);
@@ -35,7 +37,8 @@ void LoadSurfPalette(u16 index, u8 palSlot) {
 	TintPalette_Switch(palSlot);
 };
 
-u8 FindOrLoadSurfPalette(u16 surfIndex, u16 PalTag) {
+u8 FindOrLoadSurfPalette(u16 surfIndex, u16 PalTag)
+{
 	u8 PalSlot;
 	PalSlot = FindPalRef(PalTypeNPC, PalTag);
 	if (PalSlot != 0xFF)
@@ -50,7 +53,8 @@ u8 FindOrLoadSurfPalette(u16 surfIndex, u16 PalTag) {
 };
 
 
-u16 GetSurfMonSpecies(void) {
+u16 GetSurfMonSpecies(void)
+{
     u8 i;
 	u16 species;
 	
@@ -75,7 +79,8 @@ u16 GetSurfMonSpecies(void) {
     return 0xFFFF;
 };
 
-u16 GetSurfablePokemonSprite(void) {
+u16 GetSurfablePokemonSprite(void)
+{
     u8 i;
 	u16 mon;
 	
@@ -91,7 +96,8 @@ u16 GetSurfablePokemonSprite(void) {
 };
 
 
-u8 LoadSurfOverworldPalette(u16 index) {
+u8 LoadSurfOverworldPalette(u16 index)
+{
 	if (index == 0xFFFF || gSurfablePokemon[index].palAddr == 0)
 		return FindOrLoadNPCPalette(0x1100);	//surf blob pal tag
 	else
@@ -101,7 +107,8 @@ u8 LoadSurfOverworldPalette(u16 index) {
 
 
 
-void CreateOverlaySprite(u16 index) {
+void CreateOverlaySprite(u16 index)
+{
     u8 overlaySprite;
     struct Sprite *sprite;
 
@@ -116,17 +123,27 @@ void CreateOverlaySprite(u16 index) {
 		sprite->oam.paletteNum |= palSlot;			
 		
         sprite->data[2] = gFieldEffectArguments[2];
-        sprite->data[3] = -1;
+        //sprite->data[3] = -1;
+		sprite->data[3] = 0;
         sprite->data[6] = -1;
         sprite->data[7] = -1;
         //sprite->oam.priority = 1;
-		sprite->subpriority = 1;
+		sprite->oam.priority = 0;
+		sprite->subpriority = 1;		// -1
+		
+		// npc_before_player_of_type ??
+		// rom_npc_in_viewport_maybe ?
+		// SortSprites inside BuildOamBuffer ??
+		
+		// fix attempts
+		sprite->subspriteMode = 2;
     }
     BindObj(overlaySprite, 1);
 };
 
 
-void MoveCoords(u8 direction, s16 *x, s16 *y) {
+void MoveCoords(u8 direction, s16 *x, s16 *y)
+{
     *x += sDirectionToVectors[direction].x;
     *y += sDirectionToVectors[direction].y;
 };
@@ -134,7 +151,9 @@ void MoveCoords(u8 direction, s16 *x, s16 *y) {
 
 void SyncSurfSprite(struct EventObject *eventObject, struct Sprite *sprite)
 {
-    u8 i;
+    // sub_80DC588 ??
+	
+	u8 i;
     s16 x = eventObject->currentCoords.x;
     s16 y = eventObject->currentCoords.y;
     s32 spriteY = sprite->pos2.y;
@@ -149,7 +168,7 @@ void SyncSurfSprite(struct EventObject *eventObject, struct Sprite *sprite)
             MoveCoords(i, &x, &y);
             if (MapGridGetZCoordAt(x, y) == 3)
             {
-                sprite->data[5] ++;
+                sprite->data[5]++;
                 break;
             }
         }
@@ -160,7 +179,7 @@ void SyncSurfSprite(struct EventObject *eventObject, struct Sprite *sprite)
 
 /*
 // sub_80DC4E0 in fire red
-sub_8155640 in pokeem
+sub_8155640 in em
 */
 u8 SpriteDataCheck(struct Sprite *sprite) {
     return (sprite->data[0] & 0xF0) >> 4;
@@ -179,7 +198,10 @@ u8 surfBlobDirectionAnims[] = {
 	[DIR_NORTHEAST] = 1,
 };
 
-void SyncDirection(struct EventObject *eventObject, struct Sprite *sprite) {
+
+
+void SyncDirection(struct EventObject *eventObject, struct Sprite *sprite)
+{
     if (SpriteDataCheck(sprite) == 0)
         StartSpriteAnimIfDifferent(sprite, surfBlobDirectionAnims[eventObject->movementDirection]);
 };
@@ -195,16 +217,22 @@ void UpdateSurfMonOverlay(struct Sprite *sprite)
     linkedSprite = &gSprites[eventObject->spriteId];
 
     SyncDirection(eventObject, sprite);	//SynchroniseSurfAnim
-    SyncSurfSprite(eventObject, sprite);
+	
+	// fix forward facing fishing bug (fishing rod still behind overlay, though)
+	if (!(gPlayerAvatar->preventStep))
+	{
+		SyncSurfSprite(eventObject, sprite);
 
-    if (linkedSprite->animNum < 20)
-    {
-        sprite->pos1.x = linkedSprite->pos1.x;
-        sprite->pos1.y = linkedSprite->pos1.y + 8;
-        sprite->pos2.y = linkedSprite->pos2.y;
-    }
-    if (!(gPlayerAvatar->flags & PLAYER_AVATAR_FLAG_SURFING))
-        DestroySprite(sprite);
+		if (linkedSprite->animNum < 20)
+		{
+			sprite->pos1.x = linkedSprite->pos1.x;
+			sprite->pos1.y = linkedSprite->pos1.y + 8;
+			sprite->pos2.y = linkedSprite->pos2.y;
+		}
+		
+		if (!(gPlayerAvatar->flags & PLAYER_AVATAR_FLAG_SURFING))
+			DestroySprite(sprite);
+	}
 };
 
 
@@ -236,7 +264,8 @@ u32 CreateSurfablePokemonSprite(void) {
 		sprite->oam.paletteNum |= palSlot;
 		
         sprite->data[2] = gFieldEffectArguments[2];
-        sprite->data[3] = 0;
+        //sprite->data[3] = -1;
+		sprite->data[3] = 0;
         sprite->data[6] = -1;
         sprite->data[7] = -1;
     }

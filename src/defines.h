@@ -7,6 +7,7 @@
 #include "../include/sprite.h"
 #include "../include/palette.h"
 #include "../include/event_data.h"
+#include "../include/field_weather.h"
 
 #define IS_EVEN(val) (umodsi(val, 2) == 0)
 #define IS_ODD(val) (umodsi(val, 2) != 0)
