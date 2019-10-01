@@ -19,6 +19,14 @@ GetCurrentWeather = 0x807AF98 | 1;
 
 LoadCustomWeatherSpritePalette = 0x807ABC0 | 1;
 
+/*Script Functions*/
+VarGet = 0x806E568 | 1;
+VarSet = 0x806E584 | 1;
+FlagSet = 0x806E680 | 1;
+FlagClear = 0x806E6A8 | 1;
+GetFlagPointer = 0x806E5C0 | 1;
+FlagGet = 0x806E6D0 | 1;
+
 /*Palette Functions*/
 BlendPalette = 0x8045274 | 1;
 LoadCompressedPalette = 0x80703A8 | 1;
